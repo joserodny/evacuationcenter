@@ -4,7 +4,7 @@
 @section('content')
 <!-- modals -->
 @include('admin.resources')
-@include('admin.modals.addaccount')
+@include('admin.modals.account')
 <!-- end modals -->
     <div class="container-fluid mt--7">
         div class="row">
@@ -24,18 +24,17 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Number</th>
-
                     <th></th>
                   </tr>
                 </thead>
-                @foreach ($user as $users)
+            @foreach ($user as $users)
                 <tbody class="list">
                   <tr>
                     <th>
-                        {{$users->barangay_name}}
+                  {{$users->barangay['barangay_name']}}
                     </th>
                     <th>
-                        {{$users->evacuation_name}}
+                        {{$users->evacuation['evacuation_name']}}
                     </th>
                     <th>
                         {{$users->name}}
@@ -50,8 +49,9 @@
                       <div class="d-flex">
                         <div>
 
-                        <button class="btn btn-info" data-toggle="modal" data-target="#accountedit"><i class="fas fa-user-edit"></i></button>
-                         <button class="btn btn-danger"><i class="fas fa-user-minus"></i></button>
+                        <button class="btn btn-info" data-user_id="{{$users->id}}" data-name="{{$users->name}}" data-email="{{$users->email}}" data-number="{{$users->number}}" data-toggle="modal" data-target="#accountedit"><i class="fas fa-user-edit"></i></button>
+                        <a href="./accountdelete/{{$users->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-user-minus"></i></a>
+
                         </div>
                       </div>
                     </td>
@@ -62,33 +62,12 @@
             </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
-              <nav aria-label="...">
-                <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item disabled">
-                    <a class="page-link" href="#" tabindex="-1">
-                      <i class="fas fa-angle-left"></i>
-                      <span class="sr-only">Previous</span>
-                    </a>
-                  </li>
-                  <li class="page-item active">
-                    <a class="page-link" href="#">1</a>
-                  </li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item">
-                    <a class="page-link" href="#">
-                      <i class="fas fa-angle-right"></i>
-                      <span class="sr-only">Next</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+                {{$user->links('admin.pagination')}}
             </div>
           </div>
         </div>
       </div>
+      <div class="container-fluid mt-9"></div>
         @include('layouts.footers.auth')
     </div>
 @endsection
@@ -96,4 +75,25 @@
 @push('js')
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+
+
+    <script>
+    $('.delete-confirm').on('click', function (event) {
+        event.preventDefault();
+        const url = $(this).attr('href');
+        swal({
+            title: 'Are you sure?',
+            text: 'This record and it`s details will be permanantly deleted!',
+            icon: 'warning',
+            buttons: ["Cancel", "Yes!"],
+            dangerMode:true,
+        }).then(function(value) {
+            if (value) {
+                window.location.href = url;
+            }
+        });
+    });
+    </script>
+
+
 @endpush

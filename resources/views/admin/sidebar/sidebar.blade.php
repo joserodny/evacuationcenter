@@ -84,13 +84,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active " href="#navbar-examples" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                    <a class="nav-link " href="#navbar-add" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
                         <i class="ni ni-fat-add" style="color: #eb923f;"></i>
                         <span style="color: #00000080;">Add Areas</span>
 
                     </a>
 
-                    <div class="collapse" id="navbar-examples">
+                    <div class="collapse" id="navbar-add">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
                                 <a class="nav-link" href="" data-toggle="modal" data-target="#addbarangay">
@@ -99,12 +99,37 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="" data-toggle="modal" data-target="#addevacuation">
-                                    Add Evacuation area
+                                    Add Evacuation Area
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </li>
+
+
+                <li class="nav-item">
+                    <a class="nav-link" href="#navbar-disaster" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                        <i class="fas fa-bolt" style="color: #f8d300;"></i>
+                        <span style="color: #00000080;">Add Disaster</span>
+
+                    </a>
+
+                    <div class="collapse" id="navbar-disaster">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link" href="" data-toggle="modal" data-target="#adddisaster">
+                                    Add Disaster
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="" data-toggle="modal" data-target="#addevacuation">
+                                    Add Disaster Name
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="./accounts">
                         <i class="fas fa-users" style="color: #fb6340;"></i> Manage Account

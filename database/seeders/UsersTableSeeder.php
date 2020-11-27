@@ -1,6 +1,7 @@
 <?php
 namespace Database\Seeders;
 
+use Faker\Factory as Faker;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -39,5 +40,19 @@ class UsersTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now()
         ]);
+
+        $faker = Faker::create();
+        foreach(range(1,1000) as $value) {
+            DB::table('users')->insert([
+                'brgy_id'       =>  $faker->randomNumber,
+                'evacuation_id' =>  $faker->randomNumber,
+                'name'          =>  $faker->name,
+                'email'         =>  $faker->unique()->safeEmail,
+                'number'        => $faker->phoneNumber,
+                'role'          => $faker->randomElement(['admin', 'user']),
+                'password'      => bcrypt('secret'),
+              ]);
+        }
+
     }
 }

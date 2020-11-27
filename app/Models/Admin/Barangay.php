@@ -9,6 +9,8 @@ class Barangay extends Model
 {
     use HasFactory;
 
+
+
     protected $fillable = [
         'barangay_name',
     ];
@@ -23,7 +25,18 @@ class Barangay extends Model
         'barangay_name' => 'required|unique:barangays|string|max:255',
     ];
 
+    public function evacuation(){
+        return $this->belongsTo('App\Models\Admin\Evacuation', 'brgy_id');
+    }
 
+    public function barangay(){
+        return $this->belongsTo('App\Models\Admin\Barangay', 'brgy_id');
+    }
+
+    public function scopegetBrgy($query){
+
+       return $query->select('barangay_name', 'id');
+    }
 
 
 }
