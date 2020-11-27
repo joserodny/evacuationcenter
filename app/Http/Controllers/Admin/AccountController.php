@@ -128,6 +128,7 @@ class AccountController extends Controller
             'email'  => 'required|email||max:255|unique:users,email,'.$updateUser->id,
             'number' => 'required|string|digits:11',
         ]);
+
        $updateUser->update([
             'name'   => $request['name'],
             'email'  => $request['email'],
