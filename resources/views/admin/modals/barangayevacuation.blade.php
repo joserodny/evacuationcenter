@@ -9,17 +9,18 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {!! Form::open(['url' => 'admin/brgy', 'method' => 'POST']) !!}
+    <form action="{{route('dashboard.brgy')}}" method="POST">
+        @csrf
         <div class="modal-body">
             <div class="form-group">
-                <input name="barangay_name" class="form-control form-control-alternative has-danger" placeholder="Evacuation Center" type="text" />
+                <input name="barangay_name" class="form-control form-control-alternative has-danger" placeholder="Barangay Area" type="text" />
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            {{Form::submit('Add', ['class' => 'btn btn-primary'])}}
+            <button type="submit" class="btn btn-primary">Add</button>
         </div>
-        {!! Form::close() !!}
+    </form>
       </div>
     </div>
   </div>
@@ -40,7 +41,8 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {!! Form::open(['url' => 'admin/evacuation', 'method' => 'POST']) !!}
+     <form action="{{route('dashboard.evacuation')}}" method="POST">
+           @csrf
         <div class="modal-body">
             <div class="form-group">
 
@@ -57,9 +59,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          {{Form::submit('Add', ['class' => 'btn btn-primary'])}}
+          <button type="submit" class="btn btn-primary">Add</button>
         </div>
-        {!! Form::close() !!}
+      </form>
       </div>
     </div>
   </div>

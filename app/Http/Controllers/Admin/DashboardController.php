@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
     }
 
-
+/*
 
 
     public function getbrgyevacuation()
@@ -33,7 +33,7 @@ class DashboardController extends Controller
         $barangay = Barangay::getBrgy()->get();
         return view ('admin.evacuation', ['barangay' => $barangay]);
     }
-
+ */
      /**
      * Store a newly created resource in storage.
      *

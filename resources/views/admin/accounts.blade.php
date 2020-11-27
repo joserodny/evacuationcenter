@@ -50,7 +50,7 @@
                         <div>
 
                         <button class="btn btn-info" data-user_id="{{$users->id}}" data-name="{{$users->name}}" data-email="{{$users->email}}" data-number="{{$users->number}}" data-toggle="modal" data-target="#accountedit"><i class="fas fa-user-edit"></i></button>
-                        <a href="./accountdelete/{{$users->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-user-minus"></i></a>
+                        <a href="./account/delete/{{$users->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-user-minus"></i></a>
 
                         </div>
                       </div>
@@ -73,10 +73,6 @@
 @endsection
 
 @push('js')
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
-
-
     <script>
     $('.delete-confirm').on('click', function (event) {
         event.preventDefault();

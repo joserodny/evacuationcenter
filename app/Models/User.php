@@ -58,13 +58,6 @@ class User extends Authenticatable
 
     ];
 
-    public static $UpdateValidation = [
-        'name'   => 'required|string|max:255',
-        'email'  => 'required|email|max:255',
-        'number' => 'required|string|digits:11',
-    ];
-
-
 
     public function evacuation(){
         return $this->belongsTo('App\Models\Admin\Evacuation', 'evacuation_id');

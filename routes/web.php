@@ -24,26 +24,26 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // ProfileController
-    Route::get('profile',          ['as' => 'profile.edit',     'uses' => 'ProfileController@edit']);
-    Route::put('profile',          ['as' => 'profile.update',   'uses' => 'ProfileController@update']);
-    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Admin\ProfileController@edit']);
+    Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\Admin\ProfileController@update']);
+    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\Admin\ProfileController@password']);
+
     // End ProfileController
 
     // DashboardController
-    Route::resource('brgyevacuation',  'DashboardController');
-    Route::get('dashboard',             [DashboardController::class, 'index'])->middleware('role:admin');
-    Route::get('evacuationcenter',      [DashboardController::class, 'getbrgyevacuation']);
-    Route::post('brgy',                 [DashboardController::class, 'storebrgy']);
-    Route::post('evacuation',           [DashboardController::class, 'storeevacuation']);
+    Route::resource('dashboard',            DashboardController::class);
+    Route::get('dashboard',                 [DashboardController::class, 'index'])             ->middleware('role:admin');
+    Route::post('dashboard/brgy',           [DashboardController::class, 'storebrgy'])         ->name('dashboard.brgy');
+    Route::post('dashboard/evacuation',     [DashboardController::class, 'storeevacuation'])   ->name('dashboard.evacuation');
     // End DashboardController
 
     // AccountController
-    Route::resource('accounts',        'AccountController');
-    Route::get('accounts',              [AccountController::class, 'index']);
-    Route::get('getEvacuation/{id}',    [AccountController::class, 'getEvacuation']);
-    Route::get('accountdelete/{id}',    [AccountController::class, 'destroy']);
-    Route::post('createAccount',        [AccountController::class, 'store']);
-    Route::post('updateAccount',        [AccountController::class, 'update']);
+    Route::resource('account',                  AccountController::class);
+    Route::get('account',                       [AccountController::class, 'index']);
+    Route::get('account/getevacuation/{id}',    [AccountController::class, 'getEvacuation']);
+    Route::get('account/delete/{id}',           [AccountController::class, 'destroy']);
+    Route::post('account/create',               [AccountController::class, 'store'])->name('account.create');
+    Route::post('account/update',               [AccountController::class, 'update'])->name('account.update');
     // End AccountController
 
 });

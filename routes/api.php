@@ -19,14 +19,3 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-
-Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-
-    Route::resource('accounts', 'App\Http\Controllers\Admin\API\AccountController');
-
-    Route::get('accounts', [App\Http\Controllers\Admin\API\AccountController::class, 'index'])->middleware('auth:api');
-
-
-});
-
-

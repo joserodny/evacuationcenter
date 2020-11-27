@@ -9,7 +9,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {!! Form::open(['url' => 'admin/brgy', 'method' => 'POST']) !!}
+      {{--   {!! Form::open(['url' => 'admin/brgy', 'method' => 'POST']) !!} --}}
 
         <div class="modal-body">
             <div class="form-group">
@@ -22,9 +22,9 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            {{Form::submit('Add', ['class' => 'btn btn-primary'])}}
+           {{--  {{Form::submit('Add', ['class' => 'btn btn-primary'])}} --}}
         </div>
-        {!! Form::close() !!}
+       {{--  {!! Form::close() !!} --}}
       </div>
     </div>
   </div>

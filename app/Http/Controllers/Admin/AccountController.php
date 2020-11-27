@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use App\Models\Admin\Barangay;
 use App\Models\Admin\Evacuation;
 use App\Models\User;
@@ -24,7 +25,6 @@ class AccountController extends Controller
         //get barangay
         $barangay = Barangay::getBrgy()->get();
         //get users
-
         $user = User::select(
                     'brgy_id',
                     'evacuation_id',
@@ -118,10 +118,16 @@ class AccountController extends Controller
      */
     public function update(Request $request)
     {
-        //validation
-        $validation = $request->validate(User::$UpdateValidation);
+
+
         //update
        $updateUser = User::findOrFail($request->user_id);
+         //validation
+         $this->validate($request,[
+            'name'   => 'required|string|max:255',
+            'email'  => 'required|email||max:255|unique:users,email,'.$updateUser->id,
+            'number' => 'required|string|digits:11',
+        ]);
        $updateUser->update([
             'name'   => $request['name'],
             'email'  => $request['email'],

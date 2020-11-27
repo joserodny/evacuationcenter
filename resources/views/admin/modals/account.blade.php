@@ -8,7 +8,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {!! Form::open(['url' => 'admin/createAccount', 'method' => 'POST']) !!}
+     {{--    {!! Form::open(['url' => 'admin/createAccount', 'method' => 'POST']) !!} --}}
+    <form action="{{route('account.create')}}" method="POST">
+     @csrf
         <div class="modal-body">
              <div class="form-group">
 
@@ -47,9 +49,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          {{Form::submit('Add', ['class' => 'btn btn-primary'])}}
+          <button type="submit" class="btn btn-primary">Add</button>
         </div>
-        {!! Form::close() !!}
+    </form>
       </div>
     </div>
   </div>
@@ -66,7 +68,9 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        {!! Form::open(['url' => 'admin/updateAccount', 'method' => 'POST']) !!}
+    <form action="{{route('account.update')}}" method="POST">
+        @method('patch')
+        @csrf
         <div class="modal-body">
         <input id="user_id" type="hidden" name="user_id" value="">
             <div class="form-group">
@@ -81,9 +85,9 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          {{Form::submit('Save Changes', ['class' => 'btn btn-primary'])}}
+          <button type="submit" class="btn btn-primary">Save Changes</button>
         </div>
-        {!! Form::close() !!}
+    </form>
       </div>
     </div>
   </div>
@@ -104,7 +108,7 @@
                    console.log(brgy_id);
 
                    $.ajax({
-                        url: './getEvacuation/'+brgy_id,
+                        url: './account/getevacuation/'+brgy_id,
                         type: 'GET',
                         dataType: 'json',
                         success: function(data){

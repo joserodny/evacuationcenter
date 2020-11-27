@@ -131,7 +131,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="./accounts">
+                    <a class="nav-link" href="./account">
                         <i class="fas fa-users" style="color: #fb6340;"></i> Manage Account
                     </a>
                 </li>
