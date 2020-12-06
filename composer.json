@@ -19,6 +19,7 @@
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.5",
+        "beyondcode/laravel-query-detector": "^1.4",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "mockery/mockery": "^1.4.2",

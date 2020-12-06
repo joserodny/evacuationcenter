@@ -2,5 +2,4 @@
 
 <!-- Modals -->
 @include('admin.modals.barangayevacuation')
-@include('admin.modals.disasteradd')
 <!-- / Modals -->

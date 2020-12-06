@@ -4,7 +4,7 @@
 @section('content')
 <!-- modals -->
 @include('admin.resources')
-@include('admin.modals.account')
+@include('admin.modals.typhoon')
 <!-- end modals -->
     <div class="container-fluid mt--7">
         div class="row">
@@ -12,46 +12,41 @@
           <div class="card">
             <!-- Card header -->
             <div class="card-header border-0">
-              <h3 class="mb-0"><button class="btn btn-success" data-toggle="modal" data-target="#addaccount">Add</button></h3>
+              <h3 class="mb-0"><button class="btn btn-success" data-toggle="modal" data-target="#typhoonname">Add</button></h3>
             </div>
             <!-- Light table -->
             <div class="table-responsive">
               <table class="table align-items-center table-flush">
                 <thead class="thead-light">
                   <tr>
-                    <th>Barangay</th>
-                    <th>Evacuation Center</th>
                     <th>Name</th>
-                    <th>Email</th>
-                    <th>Number</th>
+                    <th>Status</th>
+                    <th>Date</th>
                     <th></th>
+                   
                   </tr>
                 </thead>
-            @foreach ($user as $users)
+               @foreach ($typhoon as $typhoons)
                 <tbody class="list">
                   <tr>
+                  <th>{{$typhoons->typhoon_name}}</th>
+
                     <th>
-                  {{$users->barangay['barangay_name']}}
+                    @if($typhoons->status == 1) 
+                    <span class="badge badge-pill badge-success">Inside PAR</span>
+                    @elseif($typhoons->status == 0)
+                    <span class="badge badge-pill badge-warning">Outside PAR</span>    
+                    @endif
                     </th>
-                    <th>
-                        {{$users->evacuation['evacuation_name']}}
-                    </th>
-                    <th>
-                        {{$users->name}}
-                    </th>
-                    <td>
-                        {{$users->email}}
-                    </td>
-                    <td>
-                        {{$users->number}}
-                    </td>
+
+                    <th>{{$typhoons->created_at->format('M d, Y')}}</th>
+                
                     <td>
                       <div class="d-flex">
                         <div>
-
-                        <button class="btn btn-info" data-user_id="{{$users->id}}" data-name="{{$users->name}}" data-email="{{$users->email}}" data-number="{{$users->number}}" data-toggle="modal" data-target="#accountedit"><i class="fas fa-user-edit"></i></button>
-                        <a href="./account/delete/{{$users->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-user-minus"></i></a>
-
+                         <a href="" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-minus-circle"></i></a>
+                        <button class="btn btn-info" data-toggle="modal" data-target="#typhoonname"><i class="fas fa-user-edit"></i></button>
+                       
                         </div>
                       </div>
                     </td>
@@ -62,7 +57,7 @@
             </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
-                {{$user->links('admin.pagination')}}
+               {{-- {{$user->links('admin.pagination')}} --}}
             </div>
           </div>
         </div>
@@ -79,7 +74,7 @@
         const url = $(this).attr('href');
         swal({
             title: 'Are you sure?',
-            text: 'This record and it`s details will be permanantly deleted!',
+            text: 'This typhoon it`s already outside in\n Philippine Area of Responsibility?',
             icon: 'warning',
             buttons: ["Cancel", "Yes!"],
             dangerMode:true,

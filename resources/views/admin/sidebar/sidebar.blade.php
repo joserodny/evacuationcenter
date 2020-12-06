@@ -108,26 +108,10 @@
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#navbar-disaster" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
+                    <a class="nav-link" href="./typhoon">
                         <i class="fas fa-bolt" style="color: #f8d300;"></i>
-                        <span style="color: #00000080;">Add Disaster</span>
-
+                        <span style="color: #00000080;">Typhoon</span>
                     </a>
-
-                    <div class="collapse" id="navbar-disaster">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="" data-toggle="modal" data-target="#adddisaster">
-                                    Add Disaster
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="" data-toggle="modal" data-target="#addevacuation">
-                                    Add Disaster Name
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <li class="nav-item">

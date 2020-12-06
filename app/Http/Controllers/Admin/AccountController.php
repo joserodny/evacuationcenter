@@ -25,7 +25,7 @@ class AccountController extends Controller
         //get barangay
         $barangay = Barangay::getBrgy()->get();
         //get users
-        $user = User::select(
+        $user = User::with('barangay', 'evacuation')->select(
                     'brgy_id',
                     'evacuation_id',
                     'name',
@@ -51,15 +51,6 @@ class AccountController extends Controller
         return json_encode($evacuation);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -70,7 +61,7 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         //validation
-        $validation = $request->validate(User::$AddValidation);
+        $request->validate(User::$AddValidation);
         //create user
         User::create([
             'brgy_id'       => $request['brgy_id'],
@@ -87,27 +78,7 @@ class AccountController extends Controller
         return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+    
 
     /**
      * Update the specified resource in storage.
