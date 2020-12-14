@@ -67,8 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="container-fluid mt-9"></div>
-        @include('layouts.footers.auth')
+     
     </div>
 @endsection
 

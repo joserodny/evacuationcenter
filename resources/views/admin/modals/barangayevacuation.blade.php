@@ -9,16 +9,16 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-    <form action="{{route('dashboard.brgy')}}" method="POST">
+    <form class="form-prevent-multiple-submits" action="{{route('dashboard.brgy')}}" method="POST">
         @csrf
         <div class="modal-body">
             <div class="form-group">
-                <input name="barangay_name" class="form-control form-control-alternative has-danger" placeholder="Barangay Area" type="text" />
+                <input name="barangay_name" class="form-control form-control-alternative has-danger" placeholder="Barangay Area" type="text" required/>
             </div>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" class="btn btn-primary">Add</button>
+            <button type="submit" class="btn btn-primary button-prevent-multiple-submits">Add</button>
         </div>
     </form>
       </div>
@@ -41,7 +41,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-     <form action="{{route('dashboard.evacuation')}}" method="POST">
+     <form class="form-prevent-multiple-submits" action="{{route('dashboard.evacuation')}}" method="POST">
            @csrf
         <div class="modal-body">
             <div class="form-group">
@@ -59,7 +59,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="submit" class="btn btn-primary button-prevent-multiple-submits">Add</button>
         </div>
       </form>
       </div>

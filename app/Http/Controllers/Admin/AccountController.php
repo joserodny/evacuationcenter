@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Pagination\LengthAwarePaginator;
+
 use Illuminate\Http\Request;
 
 class AccountController extends Controller

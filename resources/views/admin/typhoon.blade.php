@@ -45,7 +45,7 @@
                       <div class="d-flex">
                         <div>
                          <a href="" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-minus-circle"></i></a>
-                        <button class="btn btn-info" data-toggle="modal" data-target="#typhoonname"><i class="fas fa-user-edit"></i></button>
+                        <button class="btn btn-info" data-id="{{$typhoons->id}}" data-name="{{$typhoons->typhoon_name}}" data-toggle="modal" data-target="#typhoonedit"><i class="fas fa-user-edit"></i></button>
                        
                         </div>
                       </div>
@@ -57,13 +57,13 @@
             </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
-               {{-- {{$user->links('admin.pagination')}} --}}
+               {{$typhoon->links('admin.pagination')}}
             </div>
           </div>
         </div>
       </div>
       <div class="container-fluid mt-9"></div>
-        @include('layouts.footers.auth')
+      
     </div>
 @endsection
 

@@ -53,11 +53,10 @@ class User extends Authenticatable
         'evacuation_id' => 'required',
         'name'          => 'required|string|max:255',
         'email'         => 'required|email|unique:users|max:255',
-        'number'        => 'required|string|digits:11',
+        'number'        => 'required|string|digits:11|numeric',
         'role'          => 'required|string'
 
     ];
-
 
     public function evacuation(){
         return $this->belongsTo('App\Models\Admin\Evacuation', 'evacuation_id');

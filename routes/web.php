@@ -51,7 +51,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     // TyphoonController
     Route::resource('typhoon',  TyphoonController::class);
     Route::get('typhoon',       [TyphoonController::class, 'index']);
-    Route::post('typhoon',      [TyphoonController::class, 'store'])->name('typhoon.create');
+    Route::post('typhoon/create',      [TyphoonController::class, 'store'])->name('typhoon.create');
+    Route::post('typhoon/update',      [TyphoonController::class, 'update'])->name('typhoon.update');
     // End TyphoonController
 
 });

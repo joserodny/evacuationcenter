@@ -28,7 +28,7 @@
                                     Username <strong>admin@argon.com</strong> Password: <strong>secret</strong>
                             </small>
                         </div>
-                        <form role="form" method="POST" action="{{ route('login') }}">
+                        <form role="form" class="form-prevent-multiple-submits" method="POST" action="{{ route('login') }}">
                             @csrf
 
                             <div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }} mb-3">
@@ -64,7 +64,7 @@
                                 </label>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary my-4">{{ __('Sign in') }}</button>
+                                <button type="submit" class="btn btn-primary my-4 button-prevent-multiple-submits">{{ __('Sign in') }}</button>
                             </div>
                         </form>
                     </div>

@@ -9,7 +9,7 @@
           </button>
         </div>
      {{--    {!! Form::open(['url' => 'admin/createAccount', 'method' => 'POST']) !!} --}}
-    <form action="{{route('account.create')}}" method="POST">
+    <form class="form-prevent-multiple-submits" action="{{route('account.create')}}" method="POST">
      @csrf
         <div class="modal-body">
              <div class="form-group">
@@ -49,7 +49,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Add</button>
+          <button id="submitform" onclick="submitForm(this);" type="submit" class="btn btn-primary button-prevent-multiple-submits">Add</button>
         </div>
     </form>
       </div>
@@ -68,7 +68,7 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-    <form action="{{route('account.update')}}" method="POST">
+    <form class="form-prevent-multiple-submits" action="{{route('account.update')}}" method="POST">
         @method('patch')
         @csrf
         <div class="modal-body">
@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button  type="submit" class="btn btn-primary button-prevent-multiple-submits">Save Changes</button>
         </div>
     </form>
       </div>
@@ -159,7 +159,12 @@
     <!-- /editmodal -->
 
 
-
+    <script>
+      function submitform(add) {
+        add.disabled = true;
+        add.form.submit();
+      }
+    </script>
 
 
 

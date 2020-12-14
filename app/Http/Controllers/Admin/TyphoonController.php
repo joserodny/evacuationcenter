@@ -17,7 +17,9 @@ class TyphoonController extends Controller
     public function index()
     {
         $barangay = Barangay::getBrgy()->get();
-        $typhoon = Typhoon::select('typhoon_name', 'status', 'created_at')->get();
+        $typhoon = Typhoon::select('id', 'typhoon_name', 'status', 'created_at')
+                  ->paginate(5);
+                
         return view('admin.typhoon', ['barangay' => $barangay, 'typhoon' => $typhoon]);
     }
 
@@ -80,9 +82,21 @@ class TyphoonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $updateTyphoon = Typhoon::findOrFail($request->id);
+
+        $this->validate($request,[
+            'typhoon_name'   => 'required|string|max:255',
+        ]);
+
+        $updateTyphoon->update([
+            'typhoon_name' => $request['typhoon_name'],
+        ]);
+
+        $request->session()->flash('message', 'Success');
+        return back();
+
     }
 
     /**
