@@ -19,56 +19,53 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+
+        <style>
+             .vertical-center {
+               margin: 0;
+               position: fixed;
+               top: 50rem;
+
+               }
+             
+        </style>
     </head>
-    <body class="{{ $class ?? '' }}">
+
+
+    <body>
 
 
 
-        @auth()
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
+     <div class="main-content">
+          <div class="container">
+         
 
+                 
+                    <div class="row">
+                          
+                    
+                         <div class="col-5">
+                              <img style="" src="{{ asset('argon') }}/img/undraw_warning_cyit.svg" alt="404 Error">
+                    
+                         </div>
+                         <div class="col">
+                              <a class="btn btn-info  vertical-center" href="/login">Go Back</a>
+                         </div>
+                       </div>
+     
+     </div>
+     </div>
 
-            @if (Auth::user()->role == "admin")
-            @include('admin.sidebar.sidebar')
-            @elseif (Auth::user()->role == "user")
-            @include('volunteer.sidebar.sidebar')
-            @endif
+  
+       
 
-        @endauth
+          
+       
 
-
-        <div class="main-content">
-
-
-            @auth()
-            @if (Auth::user()->role == "admin")
-            @include('admin.navbar.navbar')
-            @elseif (Auth::user()->role == "user")
-            @include('volunteer.navbar.navbar')
-            @endif
-
-        @endauth
-
-            @yield('content')
-
-        </div>
-
+        
     
-
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-        @stack('js')
-        <script>
-           (function() {
-            $('.form-prevent-multiple-submits').on('submit', function() {
-                $('.button-prevent-multiple-submits').attr('disabled', 'true');
-            })
-           })(); 
-        </script>
-        <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
     </body>
 </html>

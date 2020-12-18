@@ -119,7 +119,7 @@ class AccountController extends Controller
     public function destroy(Request $request, $id)
     {
         //delete users
-        $deleteUser = User::findOrFail($id)->delete();
+        User::findOrFail($id)->delete();
         $request->session()->flash('message', 'Success');
         return back();
     }

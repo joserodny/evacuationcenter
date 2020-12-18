@@ -44,8 +44,12 @@
                     <td>
                       <div class="d-flex">
                         <div>
-                         <a href="" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-minus-circle"></i></a>
-                        <button class="btn btn-info" data-id="{{$typhoons->id}}" data-name="{{$typhoons->typhoon_name}}" data-toggle="modal" data-target="#typhoonedit"><i class="fas fa-user-edit"></i></button>
+                          @if($typhoons->status == 1) 
+                         <a href="./typhoon/update/{{$typhoons->id}}" class="btn btn-success delete-update" style="color:white;"><i class="fas fa-minus-circle"></i></a>
+                         @elseif($typhoons->status == 0)
+                         <a href="./typhoon/delete/{{$typhoons->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="far fa-times-circle"></i></a> 
+                         @endif
+                         <button class="btn btn-info" data-id="{{$typhoons->id}}" data-name="{{$typhoons->typhoon_name}}" data-toggle="modal" data-target="#typhoonedit"><i class="fas fa-user-edit"></i></button>
                        
                         </div>
                       </div>
@@ -69,7 +73,7 @@
 
 @push('js')
     <script>
-    $('.delete-confirm').on('click', function (event) {
+    $('.delete-update').on('click', function (event) {
         event.preventDefault();
         const url = $(this).attr('href');
         swal({
@@ -85,6 +89,25 @@
         });
     });
     </script>
+
+
+<script>
+  $('.delete-confirm').on('click', function (event) {
+      event.preventDefault();
+      const url = $(this).attr('href');
+      swal({
+          title: 'Are you sure?',
+          text: 'This record and it`s details will be permanantly deleted!',
+          icon: 'warning',
+          buttons: ["Cancel", "Yes!"],
+          dangerMode:true,
+      }).then(function(value) {
+          if (value) {
+              window.location.href = url;
+          }
+      });
+  });
+  </script>
 
 
 @endpush

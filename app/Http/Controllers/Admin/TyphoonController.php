@@ -105,8 +105,25 @@ class TyphoonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+
+    public function statupdate(Request $request, $id)
     {
-        //
+          //update
+     $updateUser = Typhoon::findOrFail($request->id);
+     
+     $updateUser->update([
+          'status'   => 0,
+     ]);
+
+     $request->session()->flash('message', 'Success');
+     return back();
+    }
+
+
+    public function destroy(Request $request, $id)
+    {
+        Typhoon::findOrFail($id)->delete();
+        $request->session()->flash('message', 'Success');
+        return back();
     }
 }
