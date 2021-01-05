@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DashboardController as AdminController;
+use App\Http\Controllers\Admin\EvacuationController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TyphoonController;
 
 use App\Http\Controllers\Volunteer\DashboardController as VolunteerController;
+use App\Models\Admin\Evacuation;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +64,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     Route::post('typhoon/create',               [TyphoonController::class, 'store'])->name('typhoon.create');
     Route::post('typhoon/update',               [TyphoonController::class, 'update'])->name('typhoon.update');
     // End TyphoonController
+
+    // EvacuationController
+    Route::resource('evacuationcenter',         EvacuationController::class);
+    Route::get('evacuationcenter',              [EvacuationController::class, 'index']);
+    // End EvacuationController
 
 });
 

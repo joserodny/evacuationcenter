@@ -20,20 +20,15 @@ class DashboardController extends Controller
 
     public function index()
     {
+        //get barangay
         $barangay = Barangay::getBrgy()->get();
-        return view ('admin.dashboard', ['barangay' => $barangay]);
+
+        $evacuation = Evacuation::with('barangay')->getEvacuation()->get();
+
+        return view ('admin.dashboard', ['barangay' => $barangay, 'evacuation' => $evacuation]);
 
     }
 
-/*
-
-
-    public function getbrgyevacuation()
-    {
-        $barangay = Barangay::getBrgy()->get();
-        return view ('admin.evacuation', ['barangay' => $barangay]);
-    }
- */
      /**
      * Store a newly created resource in storage.
      *
@@ -42,7 +37,7 @@ class DashboardController extends Controller
      */
     public function storebrgy(Request $request)
     {
-       $validation = $request->validate(Barangay::$brgyname);
+        $request->validate(Barangay::$brgyname);
 
         Barangay::create([
             'barangay_name' => $request['barangay_name']
@@ -55,7 +50,7 @@ class DashboardController extends Controller
 
     public function storeevacuation(Request $request)
     {
-      $validation = $request->validate(Evacuation::$evacuationname);
+        $request->validate(Evacuation::$evacuationname);
 
        Evacuation::create([
             'brgy_id' => $request['brgy_id'],

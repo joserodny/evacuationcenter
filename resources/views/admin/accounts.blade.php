@@ -49,8 +49,11 @@
                       <div class="d-flex">
                         <div>
 
-                        <button class="btn btn-info" data-user_id="{{$users->id}}" data-name="{{$users->name}}" data-email="{{$users->email}}" data-number="{{$users->number}}" data-toggle="modal" data-target="#accountedit"><i class="fas fa-user-edit"></i></button>
-                        <a href="./account/delete/{{$users->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="fas fa-user-minus"></i></a>
+                          <button class="btn btn-info btn-icon-only " data-user_id="{{$users->id}}" data-name="{{$users->name}}" data-email="{{$users->email}}" data-number="{{$users->number}}" data-toggle="modal" data-target="#accountedit">
+                            <span class="btn-inner-icon"><i class="fas fa-user-edit"></i></span>
+                          </button>    
+
+                        <a href="./account/delete/{{$users->id}}" class="btn btn-danger btn-icon-only delete-confirm" style="color:white;"><i class="fas fa-user-minus"></i></a>
 
                         </div>
                       </div>
@@ -67,7 +70,8 @@
           </div>
         </div>
       </div>
-     
+      <div class="mt-5">
+      </div>
     </div>
 @endsection
 

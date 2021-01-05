@@ -119,14 +119,7 @@
                         <i class="fas fa-users" style="color: #fb6340;"></i> Manage Account
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./evacuationcenter">
-                        <i class="fas fa-hospital-alt" style="color: #22ba73;"></i> Evacuation Center
-                    </a>
-                </li>
-
-
-
+             
             </ul>
 
 

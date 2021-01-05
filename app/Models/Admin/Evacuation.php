@@ -34,5 +34,10 @@ class Evacuation extends Model
         return $this->hasMany('App\Models\User');
     }
 
+    public function scopegetEvacuation($query){
+
+        return $query->select('id', 'brgy_id','evacuation_name');
+     }
+ 
 
 }

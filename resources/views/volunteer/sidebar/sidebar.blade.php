@@ -83,47 +83,10 @@
                         <i class="ni ni-tv-2 text-primary"></i> Dashboard
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="#navbar-add" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="navbar-examples">
-                        <i class="ni ni-fat-add" style="color: #eb923f;"></i>
-                        <span style="color: #00000080;">Add Areas</span>
-
-                    </a>
-
-                    <div class="collapse" id="navbar-add">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="" data-toggle="modal" data-target="#addbarangay">
-                                    Add Barangay
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="" data-toggle="modal" data-target="#addevacuation">
-                                    Add Evacuation Area
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+              
 
 
-                <li class="nav-item">
-                    <a class="nav-link" href="./typhoon">
-                        <i class="fas fa-bolt" style="color: #f8d300;"></i>
-                        <span style="color: #00000080;">Typhoon</span>
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="./account">
-                        <i class="fas fa-users" style="color: #fb6340;"></i> Manage Account
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./evacuationcenter">
-                        <i class="fas fa-hospital-alt" style="color: #22ba73;"></i> Evacuation Center
-                    </a>
-                </li>
+            
 
 
 

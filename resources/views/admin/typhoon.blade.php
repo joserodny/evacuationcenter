@@ -45,11 +45,11 @@
                       <div class="d-flex">
                         <div>
                           @if($typhoons->status == 1) 
-                         <a href="./typhoon/update/{{$typhoons->id}}" class="btn btn-success delete-update" style="color:white;"><i class="fas fa-minus-circle"></i></a>
+                         <a href="./typhoon/update/{{$typhoons->id}}" class="btn btn-success btn-icon-only delete-update" style="color:white;"><i class="fas fa-minus-circle"></i></a>
                          @elseif($typhoons->status == 0)
-                         <a href="./typhoon/delete/{{$typhoons->id}}" class="btn btn-danger delete-confirm" style="color:white;"><i class="far fa-times-circle"></i></a> 
+                         <a href="./typhoon/delete/{{$typhoons->id}}" class="btn btn-danger btn-icon-only delete-confirm" style="color:white;"><i class="far fa-times-circle"></i></a> 
                          @endif
-                         <button class="btn btn-info" data-id="{{$typhoons->id}}" data-name="{{$typhoons->typhoon_name}}" data-toggle="modal" data-target="#typhoonedit"><i class="fas fa-user-edit"></i></button>
+                         <button class="btn btn-info btn-icon-only" data-id="{{$typhoons->id}}" data-name="{{$typhoons->typhoon_name}}" data-toggle="modal" data-target="#typhoonedit"><i class="fas fa-user-edit"></i></button>
                        
                         </div>
                       </div>

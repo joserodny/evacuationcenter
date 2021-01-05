@@ -34,7 +34,7 @@ class AccountController extends Controller
                     'id')
 
                     ->where('id', '!=', Auth::user()->id)
-                    ->paginate(15);
+                    ->paginate(10);
          return view ('admin.accounts',
                      ['barangay' => $barangay,
                      'user'      => $user
