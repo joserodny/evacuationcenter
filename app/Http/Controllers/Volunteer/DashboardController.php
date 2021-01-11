@@ -46,12 +46,12 @@ class DashboardController extends Controller
             'age'             => $request['age'],
           ]);
 
-        $test = Constituents::select(['id'])
+        $headid = Constituents::select(['id'])
                 ->where('user_id', '=', Auth::user()->id)
                 ->first();
 
           Details::create([
-            'constituents_id' => $test->id,
+            'constituents_id' => $headid->id,
             'barangay_id'     => Auth::user()->brgy_id,
             'evacuation_id'   => Auth::user()->evacuation_id,
             'status_id'       => 1,
