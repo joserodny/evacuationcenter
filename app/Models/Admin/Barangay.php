@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Volunteer\Details;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,11 +27,15 @@ class Barangay extends Model
     ];
 
     public function evacuation(){
-        return $this->belongsTo('App\Models\Admin\Evacuation', 'brgy_id');
+        return $this->belongsTo(Evacuation::class, 'brgy_id');
     }
 
     public function barangay(){
-        return $this->belongsTo('App\Models\Admin\Barangay', 'brgy_id');
+        return $this->belongsTo(Barangay::class, 'brgy_id');
+    }
+
+    public function details(){
+        return $this->belongsTo(Details::class, 'barangay_id');
     }
 
     public function scopegetBrgy($query){

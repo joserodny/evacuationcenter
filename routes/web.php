@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminController;
 use App\Http\Controllers\Admin\EvacuationController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TyphoonController;
-
+use App\Http\Controllers\Volunteer\ConstituentsController;
 use App\Http\Controllers\Volunteer\DashboardController as VolunteerController;
 use App\Models\Admin\Evacuation;
 
@@ -66,8 +66,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     // End TyphoonController
 
     // EvacuationController
-    Route::resource('evacuationcenter',         EvacuationController::class);
-    Route::get('evacuationcenter',              [EvacuationController::class, 'index']);
+    // Route::resource('evacuationcenter',         EvacuationController::class);
+    // Route::get('evacuationcenter',              [EvacuationController::class, 'index']);
     // End EvacuationController
 
 });
@@ -82,5 +82,11 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
     // DashboardController
     Route::resource('dashboard',                VolunteerController::class);
     Route::get('dashboard',                     [VolunteerController::class, 'index']);
+    Route::post('dashboard/create',             [VolunteerController::class, 'store'])->name('dashboard.create');
     // End DashboardController
+
+    // ConstituentsController
+    Route::resource('constituents',             ConstituentsController::class);
+    Route::get('constituents',                     [ConstituentsController::class, 'index']);
+    // End ConstituentsController
 });

@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->integer('brgy_id')->nullable();
             $table->foreign('brgy_id')->references('id')->on('barangays');
-            $table->integer('evacuation_id')->nullable();;
+            $table->integer('evacuation_id')->nullable();
             $table->foreign('evacuation_id')->references('id')->on('evacuations');
             $table->string('name');
             $table->string('email')->unique();
-            $table->bigInteger('number');
+            $table->string('number');
             $table->string('role');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

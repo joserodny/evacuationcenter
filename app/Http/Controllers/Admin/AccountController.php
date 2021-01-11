@@ -33,7 +33,7 @@ class AccountController extends Controller
                     'number',
                     'id')
 
-                    ->where('id', '!=', Auth::user()->id)
+                    ->where('id', '!=', Auth::user()->id )
                     ->paginate(10);
          return view ('admin.accounts',
                      ['barangay' => $barangay,
@@ -97,7 +97,7 @@ class AccountController extends Controller
          $this->validate($request,[
             'name'   => 'required|string|max:255',
             'email'  => 'required|email||max:255|unique:users,email,'.$updateUser->id,
-            'number' => 'required|string|digits:11',
+            'number' => 'required|numeric|digits:11',
         ]);
 
        $updateUser->update([

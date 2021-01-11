@@ -2,6 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Admin\Barangay;
+use App\Models\Admin\Evacuation;
+use App\Models\Volunteer\Constituents;
+use App\Models\Volunteer\Details;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -59,11 +63,19 @@ class User extends Authenticatable
     ];
 
     public function evacuation(){
-        return $this->belongsTo('App\Models\Admin\Evacuation', 'evacuation_id');
+        return $this->belongsTo(Evacuation::class, 'evacuation_id');
     }
 
     public function barangay(){
-        return $this->belongsTo('App\Models\Admin\Barangay', 'brgy_id');
+        return $this->belongsTo(Barangay::class, 'brgy_id');
+    }
+
+    public function details(){
+        return $this->belongsTo(Details::class, 'user_id');
+    }
+
+    public function consti(){
+        return $this->belongsTo(Constituents::class, 'user_id');
     }
 
 }

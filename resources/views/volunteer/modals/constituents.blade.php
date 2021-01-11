@@ -9,7 +9,7 @@
              <span aria-hidden="true">&times;</span>
            </button>
          </div>
-     <form class="form-prevent-multiple-submits" action="{{route('dashboard.brgy')}}" method="POST">
+     <form class="form-prevent-multiple-submits" action="{{route('dashboard.create')}}" method="POST">
          @csrf
          <div class="modal-body">
              <div class="form-group">
@@ -17,7 +17,7 @@
              </div>
 
              <div class="form-group">
-              <input name="middle_name" class="form-control form-control-alternative has-danger" placeholder="Middle Name" type="text" required/>
+              <input name="middle_name" class="form-control form-control-alternative has-danger" placeholder="Middle Name (Optional)" type="text"/>
              </div>
 
              <div class="form-group">
@@ -25,19 +25,19 @@
             </div>
 
             <div class="form-group">
-              <input name="suffix_name" class="form-control form-control-alternative has-danger" placeholder="Suffix Name" type="text" required/>
+              <input name="suffix_name" class="form-control form-control-alternative has-danger" placeholder="Suffix Name (Optional)" type="text" />
             </div>
 
             <div class="form-group">
               <select class="form-control form-control-alternative has-danger" name="gender" required/>
-                <option value="">Select</option>
+                <option value="">Gender</option>
                 <option>Male</option>
                 <option>Female</option>
                 </select>
             </div>
 
             <div class="form-group">
-              <input name="age" class="form-control form-control-alternative has-danger" placeholder="age" type="text" required/>
+              <input name="age" class="form-control form-control-alternative has-danger" placeholder="age" type="text" onkeyup="numbers(this)" required/>
             </div>
 
          </div>
@@ -53,3 +53,15 @@
  
  
    <!-- / add consti Model-->
+
+   @push('js')
+     <!-- regex number only-->
+     <script type="text/javascript">
+      function numbers(input) {
+          var regex = /[^0-9]/g;
+          input.value = input.value.replace(regex, "");
+          }
+     </script>
+    <!-- /regex number only-->
+
+  @endpush

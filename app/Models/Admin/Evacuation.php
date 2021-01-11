@@ -2,6 +2,7 @@
 
 namespace App\Models\Admin;
 
+use App\Models\Volunteer\Details;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -26,13 +27,19 @@ class Evacuation extends Model
         'evacuation_name' => 'required|string|max:255'
     ];
 
-    public function barangay(){
-        return $this->belongsTo('App\Models\Admin\Barangay', 'brgy_id');
+    public function evacuation(){
+        return $this->belongsTo(Evacuation::class, 'brgy_id');
     }
 
-    public function user(){
-        return $this->hasMany('App\Models\User');
+    public function barangay(){
+        return $this->belongsTo(Barangay::class, 'brgy_id');
     }
+
+    public function details(){
+        return $this->belongsTo(Details::class, 'evacuation_id');
+    }
+
+   
 
     public function scopegetEvacuation($query){
 

@@ -22,7 +22,6 @@ class CreateDetailsTable extends Migration
             $table->foreignIdFor(Constituents::class);
             $table->foreignIdFor(Barangay::class);
             $table->foreignIdFor(Evacuation::class);
-            $table->foreignIdFor(User::class);
             $table->integer('status_id');
             $table->timestamps();
         });
