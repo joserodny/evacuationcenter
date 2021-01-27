@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\TyphoonController;
 use App\Http\Controllers\Volunteer\ConstituentsController;
 use App\Http\Controllers\Volunteer\DashboardController as VolunteerController;
 use App\Models\Admin\Evacuation;
+use App\Models\Volunteer\Constituents;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,10 +42,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     // End ProfileController
 
     // DashboardController
-    Route::resource('dashboard',                AdminController::class, ['except'=>['edit','update', 'destroy', 'show', 'create', 'store']]);
     Route::get('dashboard',                     [AdminController::class, 'index']);
     Route::post('dashboard/brgy',               [AdminController::class, 'storebrgy'])         ->name('dashboard.brgy');
     Route::post('dashboard/evacuation',         [AdminController::class, 'storeevacuation'])   ->name('dashboard.evacuation');
+    Route::resource('dashboard',                AdminController::class, ['only'=>['index','storebrgy', 'storeevacuation']]);
     // End DashboardController
 
     // AccountController
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     Route::get('account/delete/{id}',           [AccountController::class, 'destroy']);
     Route::post('account/create',               [AccountController::class, 'store'])->name('account.create');
     Route::post('account/update',               [AccountController::class, 'update'])->name('account.update');
+   
     // End AccountController
 
     // TyphoonController
@@ -81,12 +83,14 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
 
     // DashboardController
     Route::resource('dashboard',                VolunteerController::class);
-    Route::get('dashboard',                     [VolunteerController::class, 'index']);
+    Route::get('dashboard',                     [VolunteerController::class, 'index'])->name('dashboard.home');
     Route::post('dashboard/create',             [VolunteerController::class, 'store'])->name('dashboard.create');
     // End DashboardController
 
-    // ConstituentsController
+    // ConstituentsController  
+    Route::get('familymember/{id}',            [ConstituentsController::class, 'index']);
+    Route::post('familymember/insert',         [ConstituentsController::class, 'store'])->name('familymember.store');
+    Route::patch('familyhead/update',           [ConstituentsController::class, 'update'])->name('familyhead.update');
     Route::resource('constituents',             ConstituentsController::class);
-    Route::get('constituents',                     [ConstituentsController::class, 'index']);
     // End ConstituentsController
 });

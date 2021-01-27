@@ -18,7 +18,13 @@
                                 <span class="btn-inner--icon"><img src="{{ asset('argon') }}/img/icons/common/google.svg"></span>
                                 <span class="btn-inner--text">{{ __('Google') }}</span>
                             </a>
+                            <div class="mt-3"></div>
+                             <a href="https://www.paypal.com/paypalme/joserodnys" class="btn btn-danger btn-icon">
+                                <span class="btn-inner--icon">☕</span>
+                                <span class="btn-inner--text"> Buy me a Coffee</span>
+                            </a>
                         </div>
+                       
                     </div>
                     <div class="card-body px-lg-5 py-lg-5">
                         <div class="text-center text-muted mb-4">
@@ -27,6 +33,8 @@
                                     <br>
                                     Username <strong>admin@argon.com</strong> Password: <strong>secret</strong>
                             </small>
+                            
+
                         </div>
                         <form role="form" class="form-prevent-multiple-submits" method="POST" action="{{ route('login') }}">
                             @csrf

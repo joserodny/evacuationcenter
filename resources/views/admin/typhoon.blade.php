@@ -61,7 +61,7 @@
             </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
-               {{$typhoon->links('admin.pagination')}}
+               {{$typhoon->links('layouts.pagination')}}
             </div>
           </div>
         </div>

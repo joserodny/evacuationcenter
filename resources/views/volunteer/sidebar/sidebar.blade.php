@@ -79,7 +79,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item">
-                <a class="nav-link" href="./dashboard">
+                <a class="nav-link" href="{{route('dashboard.home')}}">
                         <i class="ni ni-tv-2 text-primary"></i> Dashboard
                     </a>
                 </li>

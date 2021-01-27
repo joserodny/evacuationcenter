@@ -12,13 +12,16 @@ class Constituents extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'barangay_id',
+        'evacuation_id',
+        'head_id',
         'first_name',
         'middle_name',
         'last_name',
         'suffix_name',
         'gender',
         'age',
+        'status_id'
     ];
 
     /**
@@ -36,14 +39,11 @@ class Constituents extends Model
 
     ];
 
-    public function details(){
-        return $this->belongsTo(Details::class, 'constituents_id');
-    }
 
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id');
-    }
+
+
 
    
 
 }
+ 

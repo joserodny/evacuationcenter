@@ -15,6 +15,7 @@
               <span>
                 {{ auth()->user()->barangay['barangay_name'] }},
                 {{ auth()->user()->evacuation['evacuation_name'] }}
+
               </span>
              </div>
             <!-- Tabs with icons -->
@@ -35,8 +36,9 @@
                     <!-- constituents per family  -->
                     <div class="card text-uppercase">
                       <!-- Card header -->
-                      <div class="card-header border-0 ">
-                        <h3 class="mb-0"><button class="btn btn-success text-uppercase" data-toggle="modal" data-target="#addconsti">Add Head of the family</button></h3>
+                      <div class="card-header border-0 ">                    
+                        <h3 class="mb-0"><button class="btn btn-success text-uppercase" data-toggle="modal" data-target="#addconsti">Add Head of the family</button></h3> 
+                 
                       </div>
                       <!-- Light table -->
                       <div class="table-responsive">
@@ -45,7 +47,7 @@
                             <tr>
                               <th scope="col" class="sort" data-sort="name">Full Name</th>
                               <th scope="col" class="sort" data-sort="budget">Barangay</th>
-                              <th scope="col" class="sort" data-sort="status"># Family Members</th>
+                              <th scope="col" class="sort" data-sort="status">Add Family Members</th>
                               <th scope="col">Action</th>
                             
                             </tr>
@@ -54,15 +56,32 @@
                           <tbody class="list">
                             <tr>
                               <th scope="row">
-                               {{$headfamilys->consti['first_name']}} {{$headfamilys->consti['middle_name']}} {{$headfamilys->consti['last_name']}}, {{$headfamilys->consti['suffix_name']}}</th>
+                                {{$headfamilys->first_name}} 
+                                {{$headfamilys->middle_name}} 
+                                {{$headfamilys->last_name}}, 
+                                {{$headfamilys->suffix_name}}
+                              </th>
                               <td class="budget">
-                             {{$headfamilys->barangay['barangay_name']}}
+                                {{$headfamilys->barangay_name}}
                               </td>
                               <td>
-                                <span class="badge badge-dot mr-4">
-                                  <i class="bg-warning"></i>
-                                  <span class="status"></span>
-                                </span>
+
+                                
+                                <form action="{{route('familyhead.update')}}" method="POST">
+                                  @method('patch')
+                                  @csrf
+                                  <input type="hidden" name="head_id" value="{{$headfamilys->id}}">
+
+                                  <span class="badge badge-dot mr-4">
+                                    <i class="bg-success"></i>
+                                    {{$headfamilys->familymember}}
+                                   </span>
+
+                                    <button class="btn btn-warning" type="submit">
+                                      <span class="btn-inner-icon"><i class="fas fa-users"> <i class="fas fa-plus"></i></i></span>
+                                    </button>
+                                </form>
+                               
                               </td>
                               <td>
                             
@@ -75,29 +94,7 @@
                       </div>
                       <!-- Card footer -->
                       <div class="card-footer py-4">
-                        <nav aria-label="...">
-                          <ul class="pagination justify-content-end mb-0">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1">
-                                <i class="fas fa-angle-left"></i>
-                                <span class="sr-only">Previous</span>
-                              </a>
-                            </li>
-                            <li class="page-item active">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">
-                                <i class="fas fa-angle-right"></i>
-                                <span class="sr-only">Next</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>
+                        {{$headfamily->links('layouts.pagination')}}
                       </div>
                     </div>
 

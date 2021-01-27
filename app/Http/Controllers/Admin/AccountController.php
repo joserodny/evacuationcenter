@@ -25,16 +25,13 @@ class AccountController extends Controller
         //get barangay
         $barangay = Barangay::getBrgy()->get();
         //get users
-        $user = User::with('barangay', 'evacuation')->select(
-                    'brgy_id',
-                    'evacuation_id',
-                    'name',
-                    'email',
-                    'number',
-                    'id')
+    
+        $user = DB::table('users')
+                  ->leftJoin('barangays', 'users.brgy_id', '=', 'barangays.id')
+                  ->leftJoin('evacuations', 'users.evacuation_id', '=', 'evacuations.id')
+                  ->where('users.id', '!=', Auth::user()->id)
+                  ->paginate(10);  
 
-                    ->where('id', '!=', Auth::user()->id )
-                    ->paginate(10);
          return view ('admin.accounts',
                      ['barangay' => $barangay,
                      'user'      => $user

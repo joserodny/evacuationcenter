@@ -31,10 +31,10 @@
                 <tbody class="list">
                   <tr>
                     <th>
-                  {{$users->barangay['barangay_name']}}
+                  {{$users->barangay_name}}
                     </th>
                     <th>
-                        {{$users->evacuation['evacuation_name']}}
+                        {{$users->evacuation_name}}
                     </th>
                     <th>
                         {{$users->name}}
@@ -65,7 +65,7 @@
             </div>
             <!-- Card footer -->
             <div class="card-footer py-4">
-                {{$user->links('admin.pagination')}}
+                {{$user->links('layouts.pagination')}}
             </div>
           </div>
         </div>

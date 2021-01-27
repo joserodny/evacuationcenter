@@ -70,5 +70,13 @@
         </script>
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+         <!-- regex number only-->
+     <script type="text/javascript">
+        function numbers(input) {
+            var regex = /[^0-9]/g;
+            input.value = input.value.replace(regex, "");
+            }
+       </script>
+      <!-- /regex number only-->
     </body>
 </html>

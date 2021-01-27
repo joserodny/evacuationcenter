@@ -75,7 +75,9 @@ class User extends Authenticatable
     }
 
     public function consti(){
-        return $this->belongsTo(Constituents::class, 'user_id');
+        return $this->belongsTo(Constituents::class, 'user_id', 'id');
     }
+
+  
 
 }

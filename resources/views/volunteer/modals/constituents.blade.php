@@ -55,13 +55,6 @@
    <!-- / add consti Model-->
 
    @push('js')
-     <!-- regex number only-->
-     <script type="text/javascript">
-      function numbers(input) {
-          var regex = /[^0-9]/g;
-          input.value = input.value.replace(regex, "");
-          }
-     </script>
-    <!-- /regex number only-->
+    
 
   @endpush
