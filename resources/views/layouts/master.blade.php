@@ -19,6 +19,12 @@
         <link href="{{ asset('argon') }}/vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
+   <!-- Page plugins -->
+   <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+   <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css">
+   <link rel="stylesheet" href="{{ asset('argon') }}/vendor/datatables.net-select-bs4/css/select.bootstrap4.min.css">
+ 
+       
     </head>
     <body class="{{ $class ?? '' }}">
 
@@ -33,7 +39,7 @@
             @if (Auth::user()->role == "admin")
             @include('admin.sidebar.sidebar')
             @elseif (Auth::user()->role == "user")
-            @include('volunteer.sidebar.sidebar')
+            {{-- @include('volunteer.sidebar.sidebar') --}}
             @endif
 
         @endauth
@@ -42,6 +48,7 @@
         <div class="main-content">
 
 
+            
             @auth()
             @if (Auth::user()->role == "admin")
             @include('admin.navbar.navbar')
@@ -50,15 +57,24 @@
             @endif
 
         @endauth
-
+            
             @yield('content')
 
+           
+         
+           
         </div>
 
-    
+        
+       
 
+
+        <!-- Core -->
         <script src="{{ asset('argon') }}/vendor/jquery/dist/jquery.min.js"></script>
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+       
+        <!-- Argon JS -->
+        {{-- <script src="{{ asset('argon') }}/js/argon.min.js?v=1.0.0"></script> --}}
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         @stack('js')
         <script>
@@ -68,8 +84,8 @@
             })
            })(); 
         </script>
-        <!-- Argon JS -->
-        <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+
+
          <!-- regex number only-->
      <script type="text/javascript">
         function numbers(input) {
@@ -78,5 +94,17 @@
             }
        </script>
       <!-- /regex number only-->
+      <script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    
+        <!-- Optional JS -->
+  <script src="{{ asset('argon') }}/vendor/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script src="{{ asset('argon') }}/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
+      
     </body>
 </html>

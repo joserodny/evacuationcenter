@@ -4,10 +4,9 @@
 @section('content')
     @include('volunteer.headers.headercard')
   @include('volunteer.modals.constituents')
+  @include('volunteer.modals.evacuees')
 
-  
-
-    <div class="container-fluid mt--7">
+    <div class="container-fluid mt--7 bg-gradient-black">
         <div class="row">
         <div class="col">
 
@@ -18,6 +17,7 @@
 
               </span>
              </div>
+
             <!-- Tabs with icons -->
             <div class="nav-wrapper">
               <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
@@ -30,662 +30,274 @@
              
               </ul>
             </div>
-            <div class="card shadow">
+
+
+            <div class="card shadow ">
                 <div class="tab-content" id="myTabContent">
                   <div class="tab-pane fade active show" id="tabs-icons-text-1" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab">
                     <!-- constituents per family  -->
-                    <div class="card text-uppercase">
-                      <!-- Card header -->
-                      <div class="card-header border-0 ">                    
-                        <h3 class="mb-0"><button class="btn btn-success text-uppercase" data-toggle="modal" data-target="#addconsti">Add Head of the family</button></h3> 
-                 
-                      </div>
-                      <!-- Light table -->
-                      <div class="table-responsive">
-                        <table class="table align-items-center table-flush">
-                          <thead class="thead-light">
-                            <tr>
-                              <th scope="col" class="sort" data-sort="name">Full Name</th>
-                              <th scope="col" class="sort" data-sort="budget">Barangay</th>
-                              <th scope="col" class="sort" data-sort="status">Add Family Members</th>
-                              <th scope="col">Action</th>
-                            
-                            </tr>
-                          </thead>
-                          @foreach ($headfamily as $headfamilys)
-                          <tbody class="list">
-                            <tr>
-                              <th scope="row">
-                                {{$headfamilys->first_name}} 
-                                {{$headfamilys->middle_name}} 
-                                {{$headfamilys->last_name}}, 
-                                {{$headfamilys->suffix_name}}
-                              </th>
-                              <td class="budget">
-                                {{$headfamilys->barangay_name}}
-                              </td>
-                              <td>
-
-                                
-                                <form action="{{route('familyhead.update')}}" method="POST">
-                                  @method('patch')
-                                  @csrf
-                                  <input type="hidden" name="head_id" value="{{$headfamilys->id}}">
-
-                                  <span class="badge badge-dot mr-4">
-                                    <i class="bg-success"></i>
-                                    {{$headfamilys->familymember}}
-                                   </span>
-
-                                    <button class="btn btn-warning" type="submit">
-                                      <span class="btn-inner-icon"><i class="fas fa-users"> <i class="fas fa-plus"></i></i></span>
-                                    </button>
-                                </form>
-                               
-                              </td>
-                              <td>
-                            
-                              </td>
-                          
-                            </tr>  
-                          </tbody>
-                          @endforeach
-                        </table>
-                      </div>
-                      <!-- Card footer -->
-                      <div class="card-footer py-4">
-                        {{$headfamily->links('layouts.pagination')}}
-                      </div>
-                    </div>
-
+                      @include('volunteer.tables.familyhead')
                     <!-- / Constituents per family -->
 
                   </div>
-                  <div class="tab-pane fade" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
+                  <div class="tab-pane fade active active" id="tabs-icons-text-2" role="tabpanel" aria-labelledby="tabs-icons-text-2-tab">
                   
                   <!-- constituents individual -->
-                  <div class="card">
-                    <!-- Card header -->
-                    <div class="card-header border-0">
-                      {{-- <h3 class="mb-0">Evuacuees report</h3> --}}
-                    </div>
-                    <!-- Light table -->
-                    <div class="table-responsive">
-                      <table class="table align-items-center table-flush">
-                        <thead class="thead-light">
-                          <tr>
-                            <th scope="col" class="sort" data-sort="name">Project</th>
-                            <th scope="col" class="sort" data-sort="budget">Budget</th>
-                            <th scope="col" class="sort" data-sort="status">Status</th>
-                            <th scope="col">Users</th>
-                            <th scope="col" class="sort" data-sort="completion">Completion</th>
-                            <th scope="col"></th>
-                          </tr>
-                        </thead>
-                        <tbody class="list">
-                          <tr>
-                            <th scope="row">
-                              <div class="media align-items-center">
-                                <a href="#" class="avatar rounded-circle mr-3">
-                                  <img alt="Image placeholder" src="../assets/img/theme/bootstrap.jpg">
-                                </a>
-                                <div class="media-body">
-                                  <span class="name mb-0 text-sm">Argon Design System</span>
-                                </div>
-                              </div>
-                            </th>
-                            <td class="budget">
-                              $2500 USD
-                            </td>
-                            <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-warning"></i>
-                                <span class="status">pending</span>
-                              </span>
-                            </td>
-                            <td>
-                              <div class="avatar-group">
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
-                                </a>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <span class="completion mr-2">60%</span>
-                                <div>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="text-right">
-                              <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div class="media align-items-center">
-                                <a href="#" class="avatar rounded-circle mr-3">
-                                  <img alt="Image placeholder" src="../assets/img/theme/angular.jpg">
-                                </a>
-                                <div class="media-body">
-                                  <span class="name mb-0 text-sm">Angular Now UI Kit PRO</span>
-                                </div>
-                              </div>
-                            </th>
-                            <td class="budget">
-                              $1800 USD
-                            </td>
-                            <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-success"></i>
-                                <span class="status">completed</span>
-                              </span>
-                            </td>
-                            <td>
-                              <div class="avatar-group">
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
-                                </a>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <span class="completion mr-2">100%</span>
-                                <div>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="text-right">
-                              <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div class="media align-items-center">
-                                <a href="#" class="avatar rounded-circle mr-3">
-                                  <img alt="Image placeholder" src="../assets/img/theme/sketch.jpg">
-                                </a>
-                                <div class="media-body">
-                                  <span class="name mb-0 text-sm">Black Dashboard</span>
-                                </div>
-                              </div>
-                            </th>
-                            <td class="budget">
-                              $3150 USD
-                            </td>
-                            <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-danger"></i>
-                                <span class="status">delayed</span>
-                              </span>
-                            </td>
-                            <td>
-                              <div class="avatar-group">
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
-                                </a>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <span class="completion mr-2">72%</span>
-                                <div>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%;"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="text-right">
-                              <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div class="media align-items-center">
-                                <a href="#" class="avatar rounded-circle mr-3">
-                                  <img alt="Image placeholder" src="../assets/img/theme/react.jpg">
-                                </a>
-                                <div class="media-body">
-                                  <span class="name mb-0 text-sm">React Material Dashboard</span>
-                                </div>
-                              </div>
-                            </th>
-                            <td class="budget">
-                              $4400 USD
-                            </td>
-                            <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-info"></i>
-                                <span class="status">on schedule</span>
-                              </span>
-                            </td>
-                            <td>
-                              <div class="avatar-group">
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
-                                </a>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <span class="completion mr-2">90%</span>
-                                <div>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%;"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="text-right">
-                              <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                          <tr>
-                            <th scope="row">
-                              <div class="media align-items-center">
-                                <a href="#" class="avatar rounded-circle mr-3">
-                                  <img alt="Image placeholder" src="../assets/img/theme/vue.jpg">
-                                </a>
-                                <div class="media-body">
-                                  <span class="name mb-0 text-sm">Vue Paper UI Kit PRO</span>
-                                </div>
-                              </div>
-                            </th>
-                            <td class="budget">
-                              $2200 USD
-                            </td>
-                            <td>
-                              <span class="badge badge-dot mr-4">
-                                <i class="bg-success"></i>
-                                <span class="status">completed</span>
-                              </span>
-                            </td>
-                            <td>
-                              <div class="avatar-group">
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Ryan Tompson">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-1.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Romina Hadid">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-2.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Alexander Smith">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-3.jpg">
-                                </a>
-                                <a href="#" class="avatar avatar-sm rounded-circle" data-toggle="tooltip" data-original-title="Jessica Doe">
-                                  <img alt="Image placeholder" src="../assets/img/theme/team-4.jpg">
-                                </a>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="d-flex align-items-center">
-                                <span class="completion mr-2">100%</span>
-                                <div>
-                                  <div class="progress">
-                                    <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"></div>
-                                  </div>
-                                </div>
-                              </div>
-                            </td>
-                            <td class="text-right">
-                              <div class="dropdown">
-                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fas fa-ellipsis-v"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" href="#">Action</a>
-                                  <a class="dropdown-item" href="#">Another action</a>
-                                  <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <!-- Card footer -->
-                    <div class="card-footer py-4">
-                      <nav aria-label="...">
-                        <ul class="pagination justify-content-end mb-0">
-                          <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">
-                              <i class="fas fa-angle-left"></i>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                          </li>
-                          <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                          </li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#">
-                              <i class="fas fa-angle-right"></i>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
-                    </div>
-                  </div>
-
+                  @include('volunteer.tables.individual')
                   <!-- /Constituents individual -->
-
                   </div>
                 </div>
             </div>
-          
 
-          
-        </div>
+
+
+        
+          </div>
       </div>
-        <div class="row mt-5">
-            <div class="col-xl-8 mb-5 mb-xl-0">
-                <div class="card shadow">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Page visits</h3>
-                            </div>
-                            <div class="col text-right">
-                                <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                            </div>
+
+
+      <div class="row mt-5">
+        <div class="col-xl-8 mb-5 mb-xl-0">
+            <div class="nav-wrapper">
+                <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab1" data-toggle="tab" href="#tabs-icons-text-11" role="tab" aria-controls="tabs-icons-text-11" aria-selected="true"><i class="fas fa-users"></i> Active Evacuees Head of the family</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-2-tab1" data-toggle="tab" href="#tabs-icons-text-21" role="tab" aria-controls="tabs-icons-text-21" aria-selected="false"><i class="fas fa-user"></i> Active Evacuees Individual</a>
+                    </li>
+                   
+                </ul>
+            </div>
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="tabs-icons-text-11" role="tabpanel" aria-labelledby="tabs-icons-text-1-tab1">
+                          @include('volunteer.tables.evacueeshead')
                         </div>
-                    </div>
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Page name</th>
-                                    <th scope="col">Visitors</th>
-                                    <th scope="col">Unique users</th>
-                                    <th scope="col">Bounce rate</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/
-                                    </th>
-                                    <td>
-                                        4,569
-                                    </td>
-                                    <td>
-                                        340
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/index.html
-                                    </th>
-                                    <td>
-                                        3,985
-                                    </td>
-                                    <td>
-                                        319
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/charts.html
-                                    </th>
-                                    <td>
-                                        3,513
-                                    </td>
-                                    <td>
-                                        294
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-warning mr-3"></i> 36,49%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/tables.html
-                                    </th>
-                                    <td>
-                                        2,050
-                                    </td>
-                                    <td>
-                                        147
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-up text-success mr-3"></i> 50,87%
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        /argon/profile.html
-                                    </th>
-                                    <td>
-                                        1,795
-                                    </td>
-                                    <td>
-                                        190
-                                    </td>
-                                    <td>
-                                        <i class="fas fa-arrow-down text-danger mr-3"></i> 46,53%
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="tab-pane fade" id="tabs-icons-text-21" role="tabpanel1" aria-labelledby="tabs-icons-text-2-tab1">
+                            @include('volunteer.tables.evacueesindividual')
+                        </div>
+                   
                     </div>
                 </div>
-            </div>
-            <div class="col-xl-4">
-                <div class="card shadow">
-                    <div class="card-header border-0">
-                        <div class="row align-items-center">
-                            <div class="col">
-                                <h3 class="mb-0">Social traffic</h3>
-                            </div>
-                            <div class="col text-right">
-                                <a href="#!" class="btn btn-sm btn-primary">See all</a>
-                            </div>
+            </div>   
+        </div>
+            {{-- <div class="card shadow">
+                <div class="card-header border-0 bg-gradient-green">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0" style="color: white">Active Evacuees</h3>
+                        </div>
+                        <div class="col text-right sm col-5">
+                         
+                         
+                                <div class="form-group mb-0">
+                                    <div class="input-group input-group-alternative">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                        </div>
+                                        <input class="form-control searchData" placeholder="Search" type="text">
+                                    </div>
+                                </div>
+                           
+                            
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <!-- Projects table -->
-                        <table class="table align-items-center table-flush">
-                            <thead class="thead-light">
-                                <tr>
-                                    <th scope="col">Referral</th>
-                                    <th scope="col">Visitors</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">
-                                        Facebook
-                                    </th>
-                                    <td>
-                                        1,480
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">60%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Facebook
-                                    </th>
-                                    <td>
-                                        5,480
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">70%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Google
-                                    </th>
-                                    <td>
-                                        4,807
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">80%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        Instagram
-                                    </th>
-                                    <td>
-                                        3,678
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">75%</span>
-                                            <div>
-                                                <div class="progress">
-                                                    <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">
-                                        twitter
-                                    </th>
-                                    <td>
-                                        2,645
-                                    </td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="mr-2">30%</span>
-                                            <div>
-                                                <div class="progress">
-                                                <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                </div>
+                <div class="table-responsive">
+                    <!-- Projects table -->
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">full name</th>
+                                <th scope="col">barangay</th>
+                                <th scope="col">action</th>
+                            </tr>
+                        </thead>
+                        @foreach ($evacuees as $evacuee)
+                            
+                        
+                        <tbody>
+                            <tr>
+                                <td scope="row">
+                                    {{$evacuee->first_name}} 
+                                    {{$evacuee->middle_name}} 
+                                    {{$evacuee->last_name}}, 
+                                    {{$evacuee->suffix_name}}
+                                </td>
+                                <td>
+                                    {{$evacuee->barangay_name}}
+                                </td>
+                                <td>
+                                   <a href="./evacuees/update/{{$evacuee->head_id}}"
+                                         class="btn btn-sm btn-warning btn-icon-only rounded-circle update-confirm" style="color:white;">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        @endforeach
+                    </table>
+                </div>
+                <div class="card-footer py-3">
+
+                  </div>
+            </div> --}}
+
+
+            
+        
+        <div class="col-xl-4">
+            <div class="card shadow">
+                <div class="card-header border-0">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h3 class="mb-0">Social traffic</h3>
+                        </div>
+                        <div class="col text-right">
+                            <a href="#!" class="btn btn-sm btn-primary">See all</a>
+                        </div>
                     </div>
+                </div>
+                <div class="table-responsive">
+                    <!-- Projects table -->
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Referral</th>
+                                <th scope="col">Visitors</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">
+                                    Facebook
+                                </th>
+                                <td>
+                                    1,480
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">60%</span>
+                                        <div>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Facebook
+                                </th>
+                                <td>
+                                    5,480
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">70%</span>
+                                        <div>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Google
+                                </th>
+                                <td>
+                                    4,807
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">80%</span>
+                                        <div>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    Instagram
+                                </th>
+                                <td>
+                                    3,678
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">75%</span>
+                                        <div>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">
+                                    twitter
+                                </th>
+                                <td>
+                                    2,645
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <span class="mr-2">30%</span>
+                                        <div>
+                                            <div class="progress">
+                                            <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div> 
 
        <div class="mt-5"></div>
-     
+      @include('layouts.footer')
     </div>
 @endsection
 
-@push('js')
 
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
-    <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+@push('js')
+    <script>
+    
+
+    $('.disable').on('click', function (event){
+      event.preventDefault();
+      swal({
+      icon: 'warning',
+      title: 'Please add family member first!',
+      text: '..',
+      buttons: false,
+      timer: 2500
+    })
+    });
+
+    var i = setInterval(function(){
+        document.getElementById("tabs-icons-text-2-tab").click();
+    } ,500);
+    setTimeout(function( ) { clearInterval( i ); }, 500);    
+    </script>
+
+
+
+<script src="/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
+<script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
 @endpush

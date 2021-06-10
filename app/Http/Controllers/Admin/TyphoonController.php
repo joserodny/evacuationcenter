@@ -17,8 +17,7 @@ class TyphoonController extends Controller
     public function index()
     {
         $barangay = Barangay::getBrgy()->get();
-        $typhoon = Typhoon::select('id', 'typhoon_name', 'status', 'created_at')
-                  ->paginate(5);
+        $typhoon = Typhoon::paginate(5);
                 
         return view('admin.typhoon', ['barangay' => $barangay, 'typhoon' => $typhoon]);
     }

@@ -58,7 +58,7 @@ class User extends Authenticatable
         'name'          => 'required|string|max:255',
         'email'         => 'required|email|unique:users|max:255',
         'number'        => 'required|string|digits:11|numeric',
-        'role'          => 'required|string'
+        'role'          => 'required|string|in:admin,user'
 
     ];
 

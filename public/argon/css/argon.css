@@ -18926,14 +18926,14 @@ textarea[resize='horizontal']
 }
 .nav-pills .nav-link:hover
 {
-    color: #485fe0;
+    color: #3b63e9;
 }
 
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link
 {
     color: #fff;
-    background-color: #5e72e4;
+    background: linear-gradient(87deg, #2dce89 0, #2dcecc 100%) !important;
 }
 
 @media (max-width: 575.98px)

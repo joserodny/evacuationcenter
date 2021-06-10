@@ -68,11 +68,17 @@
                 {{$user->links('layouts.pagination')}}
             </div>
           </div>
+
         </div>
+        <div class="mt-5">
+        </div>
+        @include('layouts.footer')
       </div>
-      <div class="mt-5">
-      </div>
+      
+     
+      
     </div>
+    
 @endsection
 
 @push('js')

@@ -3,13 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DashboardController as AdminController;
-use App\Http\Controllers\Admin\EvacuationController;
-use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\TyphoonController;
+
 use App\Http\Controllers\Volunteer\ConstituentsController;
 use App\Http\Controllers\Volunteer\DashboardController as VolunteerController;
-use App\Models\Admin\Evacuation;
-use App\Models\Volunteer\Constituents;
+use App\Http\Controllers\Volunteer\EvacueesController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -84,13 +83,33 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
     // DashboardController
     Route::resource('dashboard',                VolunteerController::class);
     Route::get('dashboard',                     [VolunteerController::class, 'index'])->name('dashboard.home');
+    Route::get('/familyhead',                   [VolunteerController::class, 'familyHead'])->name('dashboard.familyhead');
+    Route::get('/individual',                   [VolunteerController::class, 'individual'])->name('dashboard.individual');
+    Route::get('/evacueeshead',                 [VolunteerController::class, 'evacueeshead'])->name('dashboard.evacueeshead');
+
+    
     Route::post('dashboard/create',             [VolunteerController::class, 'store'])->name('dashboard.create');
+    Route::post('dashboard/createindi',         [VolunteerController::class, 'storeindi'])->name('dashboard.createindi');
+    Route::get('dashboard/action',              [VolunteerController::class, 'action'])->name('dashboard.action');
     // End DashboardController
 
     // ConstituentsController  
-    Route::get('familymember/{id}',            [ConstituentsController::class, 'index']);
-    Route::post('familymember/insert',         [ConstituentsController::class, 'store'])->name('familymember.store');
-    Route::patch('familyhead/update',           [ConstituentsController::class, 'update'])->name('familyhead.update');
+    Route::get('familymember/{id}',             [ConstituentsController::class, 'show']);
+    Route::get('familymember/edit/{id}',        [ConstituentsController::class, 'index']);
+    Route::get('familymember/edit/delete/{id}', [ConstituentsController::class, 'destroy']);
+    Route::get('familymember/edit/remove/{id}', [ConstituentsController::class, 'removeAll']);
+    Route::post('familymember/insert',          [ConstituentsController::class, 'store'])->name('familymember.store');
+    //indi
+    Route::put('individual/update',             [ConstituentsController::class, 'update'])->name('individual.update');
+    Route::get('remove/{id}',                   [ConstituentsController::class, 'destroyindi']);
     Route::resource('constituents',             ConstituentsController::class);
     // End ConstituentsController
+
+
+    //EvacueesController
+    Route::post('evacuees/insert',              [EvacueesController::class, 'strore'])->name('evacuees.store');
+    Route::get('evacuees/update/{id}',          [EvacueesController::class, 'update']);
+    Route::resource('evacuees',                 EvacueesController::class);
+    //End EvacueesController
+
 });

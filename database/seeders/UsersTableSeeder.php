@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+
             'brgy_id' => '0',
             'evacuation_id' => '0',
             'name' => 'Admin Admin',
@@ -29,6 +30,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'id' => '100',
             'brgy_id' => '0',
             'evacuation_id' => '0',
             'name' => 'user user',

@@ -1,15 +1,17 @@
 
   @if ($paginator->hasPages())
-  <nav>
+  <nav aria-label="...">
   <ul class="pagination justify-content-end">
 
     @if($paginator->onFirstPage())
-        <li class="page-item disabled">
-          <span class="sr-only">Previous</span>
+        <li class="page-item">
+            <a class="page-link" href="{{$paginator->previousPageUrl()}}" tabindex="-1">
+                <i class="fas fa-angle-left"><span class="sr-only">Previous</span></i>
+            </a>
         </li>
     @else
         <li class="page-item">
-            <a class="page-link" href="{{$paginator->previousPageUrl()}}" tabindex="-1">
+            <a class="page-link active" href="{{$paginator->previousPageUrl()}}" tabindex="-1">
                 <i class="fas fa-angle-left"><span class="sr-only">Previous</span></i>
             </a>
         </li>
@@ -49,3 +51,4 @@
 </nav>
 @endif
 
+  

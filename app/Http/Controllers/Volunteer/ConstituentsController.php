@@ -18,11 +18,10 @@ class ConstituentsController extends Controller
     
     public function index($id){
 
-        $headfam = Constituents::
-                where('id', $id)
-                ->first();
-               
-        return view('volunteer.constituents', ['headfam' => $headfam]);
+        $familymember = Constituents::where('head_id', '=', $id)->get();
+
+
+        return view('volunteer.familymember', ['familymember' => $familymember, 'id' => $id]);
     }
 
     /**
@@ -41,24 +40,14 @@ class ConstituentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request )
     {
 
+        $userId = Auth::user()->id;
         //update familyhead id
         
-        
-
-
         //validation
-          $request->validate([
-            'moreFields.*.head_id'      => 'required|numeric|max:255',  
-            'moreFields.*.first_name'   => 'required|string|max:255',
-            'moreFields.*.middle_name'  => 'nullable|string|max:255',
-            'moreFields.*.last_name'    => 'required|string|max:255',
-            'moreFields.*.suffix_name'  => 'nullable|string|max:255',
-            'moreFields.*.gender'       => 'required|string|max:255',
-            'moreFields.*.age'          => 'required|numeric|max:255',
-          ]);
+        $request->validate(Constituents::$fammembervalidation);
 
           foreach ($request->moreFields as $key => $value){
            Constituents::create([
@@ -69,14 +58,27 @@ class ConstituentsController extends Controller
                 'last_name'       => $value['last_name'],
                 'suffix_name'     => $value['suffix_name'],
                 'gender'          => $value['gender'],
-                'age'             => $value['age'],
-                'status_id'       => 0,
-              ]);
+                'birthday'        => $value['birthday'],
+                'status_id'       => 1,
+              ]); 
+
+            $headFam = $value['head_id']; 
+            $head = Constituents::select('head_id', 'id', 'status_id')->where('id', '=', $value['head_id'])->first();
             
+            $famId = $head->head_id;
+            if(empty($famId)){
+                Constituents::where('status_id', $userId)
+                ->first()
+                ->update([
+                  'head_id' =>  $headFam,
+                  'status_id' => 1,
+               ]);  
+                }
           }
 
-
+          
          
+
           $request->session()->flash('message', 'Success');
           return redirect()->to('volunteer/dashboard');
     
@@ -90,18 +92,15 @@ class ConstituentsController extends Controller
      */
     public function show($id)
     {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        
+      $familymember = Constituents::where('head_id', '=', $id)->get();
+    
+      $headfam = Constituents::
+        where('id', $id)
+        ->first();
+       
+        return view('volunteer.constituents', ['headfam' => $headfam, 'familymember' => $familymember]);
     }
 
     /**
@@ -113,16 +112,17 @@ class ConstituentsController extends Controller
      */
     public function update(Request $request)
     {
-        //update
-       $updateUser = Constituents::findOrFail($request->head_id);
-       
+               
+        Constituents::where('id', '=', $request->id)
+                    ->update([
+                        'first_name'    => $request['first_name'],
+                        'middle_name'   => $request['middle_name'],
+                        'last_name'     => $request['last_name'],  
+                        'suffix_name'   => $request['suffix_name'],
+                        'gender'        => $request['gender'],
 
-     $updateUser->update([
-          'head_id'   => $request->head_id,
-     ]);
-
-     return redirect()->to('volunteer/familymember/'. $request->head_id);
-
+                    ]);
+        return back();                
     }
 
     /**
@@ -131,8 +131,27 @@ class ConstituentsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        //delete users
+        Constituents::findOrFail($id)->delete();
+        $request->session()->flash('message', 'Success');
+        return back();
     }
+
+    public function destroyindi(Request $request, $id)
+    {
+        //delete users
+        Constituents::findOrFail($id)->delete();
+        $request->session()->flash('message', 'Success');
+        return back();
+    }
+
+    public function removeAll(Request $request, $id){
+
+        Constituents::where('head_id', '=', $id)->delete();
+        $request->session()->flash('message', 'Success');
+        return redirect()->to('volunteer/dashboard');
+    }
+
 }

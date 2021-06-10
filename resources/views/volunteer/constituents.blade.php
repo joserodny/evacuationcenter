@@ -25,7 +25,7 @@
                   <div class="card text-uppercase">
                       <!-- Card header -->
                       <div class="card-header border-0 ">
-                        {{$headfam->first_name}} {{$headfam->middle_name}} {{$headfam->last_name}}, {{$headfam->suffix_name}}</th> 
+                        {{$headfam->first_name}} {{$headfam->middle_name}} {{$headfam->last_name}}, {{$headfam->suffix_name}}
                       </div>
                       <!-- Light table -->
                       <div class="table-responsive">
@@ -47,6 +47,7 @@
                             </tr>
                           </thead>
                           <tbody class="list" id="familymember">
+                         
                             <tr>
                              
                               <th>
@@ -62,15 +63,15 @@
                                 <input name="moreFields[0][suffix_name]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Suffix Name (Optional)"/>
                               </td>
                               <td>
-                                <select class="form-control form-control-alternative has-danger" name="moreFields[0][gender]" required/>
+                                <select class="form-control form-control-alternative has-danger" name="moreFields[0][gender]" required>
                                   <option value="">Gender</option>
                                   <option>Male</option>
                                   <option>Female</option>
                                 </select>
                               </td>
                               <td>
-                               <input name="moreFields[0][age]" class="form-control form-control-alternative has-danger" onkeyup="numbers(this)" type="text" placeholder="Age" required/>
-                              </td>
+                                 <input name="moreFields[0][birthday]" class="form-control datepicker1" data-date-format='yyyy-mm-dd' placeholder="Select Birthday" type="text" required>
+                               </td>
                               <td>
                                 <input type="hidden" name="moreFields[0][head_id]" value="{{$headfam->id}}"> 
                               </td>
@@ -89,12 +90,13 @@
                       </div>
 
                     </div>
-                  </div>
                 </form>
+            
             </div>
         </div>
       </div>
        <div class="mt-5"></div>
+       @include('layouts.footer')
     </div>
 @endsection
           
@@ -115,9 +117,15 @@
         '<option>Male</option><option>Female</option>'+
       '</select>'+
     '</td>'+
-    '<td><input name="moreFields['+i+'][age]" onkeyup="numbers(this)" class="form-control form-control-alternative has-danger"  type="text" placeholder="Age" required/></td>'+
+    '<td>'+
+      '<input name="moreFields['+i+'][birthday]" class="form-control datepicker1" data-date-format="yyyy-mm-dd"  placeholder="Select Birthday" type="text" required>'+
+    '</td>'+
     '<td><button type="button" class="btn btn-danger btn-icon-only remove-tr"><input type="hidden" name="moreFields['+i+'][head_id]" value="{{$headfam->id}}"><span class="btn-inner-icon"><i class="fas fa-minus"></i></span></button></td>'+
-    '</tr>');});
+    '</tr>');
+    $( function() {
+        $( '.datepicker1' ).datepicker();
+      } );
+    });
   $(document).on('click', '.remove-tr', function(){  
   $(this).parents('tr').remove();
   });  
@@ -125,5 +133,11 @@
 
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.min.js"></script>
     <script src="{{ asset('argon') }}/vendor/chart.js/dist/Chart.extension.js"></script>
+
+    <script>
+      $( function() {
+        $( '.datepicker1' ).datepicker();
+      } );
+      </script>
 @endpush
 

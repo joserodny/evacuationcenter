@@ -45,7 +45,7 @@
                       <div class="d-flex">
                         <div>
                           @if($typhoons->status == 1) 
-                         <a href="./typhoon/update/{{$typhoons->id}}" class="btn btn-success btn-icon-only delete-update" style="color:white;"><i class="fas fa-minus-circle"></i></a>
+                         <a href="./typhoon/update/{{$typhoons->id}}" class="btn btn-success btn-icon-only update-confirm" style="color:white;"><i class="fas fa-minus-circle"></i></a>
                          @elseif($typhoons->status == 0)
                          <a href="./typhoon/delete/{{$typhoons->id}}" class="btn btn-danger btn-icon-only delete-confirm" style="color:white;"><i class="far fa-times-circle"></i></a> 
                          @endif
@@ -65,15 +65,18 @@
             </div>
           </div>
         </div>
+        <div class="mt-5">
+        </div>
+        @include('layouts.footer')
       </div>
-      <div class="container-fluid mt-9"></div>
+      
       
     </div>
 @endsection
 
 @push('js')
     <script>
-    $('.delete-update').on('click', function (event) {
+    $('.update-confirm').on('click', function (event) {
         event.preventDefault();
         const url = $(this).attr('href');
         swal({

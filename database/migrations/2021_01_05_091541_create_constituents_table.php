@@ -18,14 +18,13 @@ class CreateConstituentsTable extends Migration
         Schema::create('constituents', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Barangay::class);
-            $table->foreignIdFor(Evacuation::class)->nullable();;
-            $table->integer('head_id')->nullable();
+            $table->bigInteger('head_id')->nullable();
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->string('suffix_name')->nullable();
             $table->string('gender');
-            $table->integer('age');
+            $table->date('birthday');
             $table->timestamps();
             $table->integer('status_id');
         });
