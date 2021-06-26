@@ -20,8 +20,9 @@
             <!-- Tabs with icons -->
             <div class="mt-3"></div>
             <div class="card bg-default shadow">
-              <form class="form-prevent-multiple-submits" action="{{route('familymember.store')}}" method="POST">
+              <form class="form-prevent-multiple-submits" action="{{route('familymember.update')}}" method="POST">
                 @csrf
+                @method('PUT')
                   <div class="card text-uppercase">
                       <!-- Card header -->
                     
@@ -35,6 +36,7 @@
                               <th scope="col" class="sort">Last Name</th>
                               <th scope="col" class="sort">Suffix Name</th>
                               <th scope="col" class="sort">Gender</th>
+                              <th scope="col" class="sort"></th>
                               <th scope="col" class="sort">Age</th>
                               <th scope="col">
                             
@@ -52,24 +54,33 @@
                           <tbody class="list" id="familymember">
                             <tr>
                               <th>
-                                <input name="moreFields[0][first_name]" class="form-control form-control-alternative has-danger"  type="text" placeholder="First Name" value="{{$familymembers->first_name}}" required/>
+                                <input name="id[]" class="form-control form-control-alternative has-danger" type="hidden" value="{{$familymembers->id}}" required/>
+                                <input name="first_name[]" class="form-control form-control-alternative has-danger"  type="text" placeholder="First Name" value="{{$familymembers->first_name}}" required/>
                               </th>
                               <td>
-                                <input name="moreFields[0][middle_name]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Middle Name (Optional)" value="{{$familymembers->middle_name}}"/>
+                                <input name="middle_name[]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Middle Name (Optional)" value="{{$familymembers->middle_name}}"/>
                               </td>
                               <td>
-                                <input name="moreFields[0][last_name]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Last Name" value="{{$familymembers->last_name}}" required/>
+                                <input name="last_name[]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Last Name" value="{{$familymembers->last_name}}" required/>
                               </td>
                               <td>
-                                <input name="moreFields[0][suffix_name]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Suffix Name (Optional)"/>
+                                <input name="suffix_name[]" class="form-control form-control-alternative has-danger"  type="text" placeholder="Suffix Name (Optional)"/>
                               </td>
                               <td>
-                                <span>{{$familymembers->gender}}</span>
+                              
+                                
+                             
+                                <select class="form-control form-control-alternative has-danger" name="gender[]" required>
+                                  <option value="Male" @if($familymembers->gender == 'Male') selected @endif>Male</option>
+                                  <option value="Female" @if($familymembers->gender == 'Female') selected @endif>Female</option>
+                                  
+                             
                               </td>
                               <td>
-                               <input name="moreFields[0][age]" class="form-control form-control-alternative has-danger" onkeyup="numbers(this)" type="text" placeholder="Age" value="{{$familymembers->age}}" required/>
-                               
+                               <input name="birthday[]" class="form-control form-control-alternative  datepicker" type="date" placeholder="Birthdate" >
+                              
                               </td>
+                              <td> <span>{{ $familymembers->birthday}}</span> </td>
                               <td>
                                  <a href="./delete/{{$familymembers->id}}" class="btn btn-warning btn-icon-only delete-confirm" style="color:white;">
                                   <i class="fas fa-minus"></i>
@@ -81,9 +92,24 @@
                           </tbody>
                           @endforeach
                         </table>
+
+                       
                       </div>
                       <!-- Card footer -->
-                  
+                      
+                      <div class="row justify-content-md-center">
+                       
+                        <div class="col-md-auto mt-2 mb-2">
+                         <button class="btn btn-icon btn-warning" type="submit">
+                            <span class="btn-inner--icon"><i class="ni ni-bag-17"></i></span>
+                              <span class="btn-inner--text">Update</span>
+                          </button>
+                        </div>
+                       
+                      </div>
+
+
+                 
 
                     </div>
                 </form>
@@ -132,8 +158,12 @@
           }
       });
   });
-  </script>
 
+  $(function(){
+    $('.datepicker').datepicker();
+  });
+  
+  </script>
 
 @endpush
 

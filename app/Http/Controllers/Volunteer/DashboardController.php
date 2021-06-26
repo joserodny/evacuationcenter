@@ -8,11 +8,14 @@ use App\Models\Admin\Typhoon;
 use App\Models\User;
 use App\Models\Volunteer\Constituents;
 use App\Models\Volunteer\Details;
+use App\Models\Volunteer\Evacuees;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Debugbar;
 use Illuminate\Support\Facades\DB;
 use DataTables;
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 class DashboardController extends Controller
 {
     /**
@@ -27,17 +30,37 @@ class DashboardController extends Controller
 
     public function index(Request $request)
     {
-     $userId = Auth::user()->id;
-     
-     
-      $statId = Constituents::getConsti()
-                             ->where('status_id', $userId)->first();
-                             
-      $typhoon = Typhoon::where('status', 1)->get();                  
+      $userId = Auth::user()->id;
+      $userbrgy_id = Auth::user()->brgy_id;
+      $statId = Constituents::getConsti()->where('status_id', $userId)->first();
+      $typhoon = Typhoon::where('status', 1)->get();    
+      
+
+      
+
+      //active evacueesAge
+         $activeEvacueesAge =  Constituents::select(DB::raw(
+          'sum(birthday Between 0 and 2) as infant,
+           sum(birthday Between 3 and 12) as child,
+           sum(birthday Between 13 and 59) as adult,
+           sum(birthday Between 60 and 200) as senior
+          '))
+         ->where('evacuation_id', Auth::user()->evacuation_id)
+         ->whereIn('status_id', [3,4])
+         ->first();        
+      //dashboard charts
+      $chart = (new LarapexChart)->horizontalBarChart()
+      ->setTitle('Evacuess Charts')
+      ->setColors(['#00E38E'])
+      ->addData('', [$activeEvacueesAge['infant'], $activeEvacueesAge['child'], $activeEvacueesAge['adult'], $activeEvacueesAge['senior']])
+      ->setXAxis(['infant', 'Child', 'Adult', 'Senior'])
+      ->setGrid();
+
       return view('volunteer.dashboard', 
       [
-      'typhoon'     => $typhoon,   
-    ], compact('statId'));         
+      'typhoon'       => $typhoon,
+      'statId'        => $statId,
+    ], compact('chart'));         
     }
     //show head of family
     public function familyHead(Request $request){
@@ -117,6 +140,7 @@ class DashboardController extends Controller
                             data-last_name="'.$individual->last_name.'"
                             data-suffix_name="'.$individual->suffix_name.'"
                             data-gender="'.$individual->gender.'"
+                            data-age="'.$individual->birthday.'"
                             class="btn btn-icon btn-warning" type="button" data-toggle="modal" data-target="#editIndi">
                             <span class="btn-inner--icon"><i class="fas fa-edit"></i></span>
                             </button>';             
@@ -136,11 +160,13 @@ class DashboardController extends Controller
 
     //show active evacuees per family head   
     public function evacueeshead(Request $request){
+      $evaId = Auth::user()->evacuation_id;
       if($request->ajax()) {
       
         //active evacuees                    
       $evacuees =  Constituents::getConsti()
-              ->where('constituents.status_id', '=', 3)
+              ->where('status_id', '=', 3)
+              ->where('evacuation_id', '=', $evaId)
               ->groupBy('head_id')
               ->get();              
         return DataTables::of($evacuees)
@@ -181,6 +207,61 @@ class DashboardController extends Controller
         }
     }
 
+
+    //show active evacuees individual
+    public function evacueesindi(Request $request){
+      $evaId = Auth::user()->evacuation_id;
+      if($request->ajax()) {
+      
+        //active evacuees                    
+     
+      $evacuees =  Constituents::getConsti()
+                ->where('evacuation_id', '=', $evaId)
+                ->where('status_id', '=', 4)
+                ->get();    
+            
+         
+        return DataTables::of($evacuees)
+              ->addColumn('action', function($evacuees){
+                  $btn = ' <a href="./evacuees/update/'.$evacuees->id.'"
+                            class="btn btn-sm btn-warning btn-icon-only rounded-circle update-confirm" style="color:white;">
+                            <i class="fas fa-sign-out-alt"></i>
+                            </a>
+                            
+                            <script>
+                            $(".update-confirm").on("click", function (event) {
+                              event.preventDefault();
+                              const url = $(this).attr("href");
+                              swal({
+                                  title: "Are you sure?",
+                                  text: "This person and his family is already outside in evacuation area.",
+                                  icon: "warning",
+                                  buttons: ["Cancel", "Yes!"],
+                                  dangerMode:true,
+                              }).then(function(value) {
+                                  if (value) {
+                                      swal({
+                                          icon: "success",
+                                          title: "Your work has been saved",
+                                          buttons: false,
+                                          timer: 1500
+                                      })
+                                      window.location.href = url;
+                                  }
+                      
+                              });
+                          });
+                            </script> ';                        
+                  return $btn; 
+              })
+              ->rawColumns(['action'])
+              ->make(true);
+             
+        }
+       
+    }
+
+
   
     /**
      * Display the specified resource.
@@ -209,6 +290,7 @@ class DashboardController extends Controller
           $request->validate(Constituents::$constituenstdetails);
           $userId = Auth::user()->id;
 
+         
           Constituents::create([
             'barangay_id'     => Auth::user()->brgy_id,
             'head_id'         => null,
@@ -217,7 +299,7 @@ class DashboardController extends Controller
             'last_name'       => $request['last_name'],
             'suffix_name'     => $request['suffix_name'],
             'gender'          => $request['gender'],
-            'birthday'        => $request['birthday'],
+            'birthday'        => Carbon::parse($request['birthday'])->age,
             'status_id'       => $userId,
           ]);
           $statId = Constituents::getConsti()
@@ -241,7 +323,7 @@ class DashboardController extends Controller
         'last_name'       => $request['last_name'],
         'suffix_name'     => $request['suffix_name'],
         'gender'          => $request['gender'],
-        'birthday'        => $request['birthday'],
+        'birthday'        => Carbon::parse($request['birthday'])->age,
         'status_id'       => 2,
       ]);
       

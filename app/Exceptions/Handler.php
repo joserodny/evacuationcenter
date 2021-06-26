@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use App\Exceptions;
 
 class Handler extends ExceptionHandler
 {
@@ -32,6 +33,14 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        //
+        $this->reportable(function (Exceptions $e) {
+            logger($e); 
+    
+            if($e->getStatusCode() == 500 ){
+                return redirect('/');
+            }
+        });
     }
+
+   
 }

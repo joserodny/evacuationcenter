@@ -36,14 +36,22 @@ class Constituents extends Model
   
 
     public static $constituenstdetails = [
-
-
         'first_name' => 'required|string|max:255',
         'middle_name' => 'nullable|string|max:255',
         'last_name' => 'required|string|max:255',
         'suffix_name' => 'nullable|string|max:255',
         'gender' => 'required|string|max:255',
         'birthday' => 'required|date:y-m-d|before_or_equal:today|max:255',
+
+    ];
+
+    public static $constituenstdetails2 = [
+        'first_name' => 'required|string|max:255',
+        'middle_name' => 'nullable|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'suffix_name' => 'nullable|string|max:255',
+        'gender' => 'required|string|max:255',
+        'birthday' => 'nullable|date:y-m-d|before_or_equal:today|max:255',
 
     ];
 
@@ -57,15 +65,25 @@ class Constituents extends Model
             'moreFields.*.last_name'    => 'required|string|max:255',
             'moreFields.*.suffix_name'  => 'nullable|string|max:255',
             'moreFields.*.gender'       => 'required|string|max:255',
-            'moreFields.*.birthday'     => 'required|date:m/d/y|max:255',
+            'moreFields.*.birthday'     => 'required|date:y-m-d|before_or_equal:today|max:255',
     ];
+
+    public static $fammembervalidation2 = [ 
+        'first_name.*'   => 'required|string|max:255',
+        'middle_name.*'  => 'nullable|string|max:255',
+        'last_name.*'    => 'required|string|max:255',
+        'suffix_name.*'  => 'nullable|string|max:255',
+        'gender.*'       => 'required|string|max:255',
+        'birthday.*'     => 'nullable|date:y-m-d|before_or_equal:today|max:255',
+];
+
 
 
     //query for constituents
 
     public function scopegetConsti($query){
 
-        return $query->leftJoin('barangays', 'barangays.id', '=', 'constituents.barangay_id')
+       return $query->leftJoin('barangays', 'barangays.id', '=', 'constituents.barangay_id')
                     ->select(
                     'constituents.id',   
                     'constituents.first_name',
@@ -76,9 +94,14 @@ class Constituents extends Model
                     'barangays.barangay_name',
                     'constituents.gender',
                     'constituents.birthday',
-                    'constituents.status_id')
+                    'constituents.status_id'
+                    )
                     ->orderByDesc('constituents.id');
      }
+
+     
+    
+
  
 
  

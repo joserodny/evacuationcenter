@@ -7,6 +7,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\Admin\Barangay;
 use App\Models\Admin\Evacuation;
 use App\Models\User;
+use App\Models\Volunteer\Constituents;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\Debugbar\Facade as Debugbar;
 use Illuminate\Support\Facades\DB;
@@ -22,8 +23,10 @@ class AccountController extends Controller
      */
     public function index()
     {
+        $totalEvacuees      = Constituents::select('status_id')->whereIn('status_id', [3,4])->count();
         //get barangay
-        $barangay = Barangay::getBrgy()->get();
+        $barangay = Barangay::select('id', 'barangay_name')->get();
+      
         //get users
     
         $user = DB::table('users')
@@ -34,7 +37,8 @@ class AccountController extends Controller
 
          return view ('admin.accounts',
                      ['barangay' => $barangay,
-                     'user'      => $user
+                     'user'      => $user,
+                     'totalEvacuees' => $totalEvacuees,
                      ]);
 
 

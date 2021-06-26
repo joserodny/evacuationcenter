@@ -56,5 +56,90 @@ class UsersTableSeeder extends Seeder
         //       ]);
         // }
 
+
+        DB::table('barangays')->insert([
+            [
+        	'barangay_name' => 'Barangka',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Calumpang',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Concepcion I (Uno)',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Concepcion II (Dos)',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Fortune',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Industrial Valley Complex',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Jesus Dela Peña',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Malanday',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Marikina Heights',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Nangka',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Parang',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'San Roque',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Santa Elena',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+            [
+        	'barangay_name' => 'Santo Niño',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+              [
+        	'barangay_name' => 'Tañong',
+            'created_at' => now(),
+            'updated_at' => now()
+            ],
+             [
+        	'barangay_name' => 'Tumana',
+            'created_at' => now(),
+            'updated_at' => now()
+            ]
+            
+         ]);
+
     }
 }

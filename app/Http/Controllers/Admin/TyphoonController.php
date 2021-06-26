@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\Barangay;
 use App\Models\Admin\Typhoon;
+use App\Models\Volunteer\Constituents;
 use Illuminate\Http\Request;
 
 class TyphoonController extends Controller
@@ -18,8 +19,12 @@ class TyphoonController extends Controller
     {
         $barangay = Barangay::getBrgy()->get();
         $typhoon = Typhoon::paginate(5);
-                
-        return view('admin.typhoon', ['barangay' => $barangay, 'typhoon' => $typhoon]);
+  
+        return view('admin.typhoon',
+        ['barangay' => $barangay, 
+        'typhoon' => $typhoon,
+      
+    ]);
     }
 
     /**

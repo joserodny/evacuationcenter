@@ -37,7 +37,7 @@
                               <th scope="col" class="sort">Last Name</th>
                               <th scope="col" class="sort">Suffix Name</th>
                               <th scope="col" class="sort">Gender</th>
-                              <th scope="col" class="sort">Age</th>
+                              <th scope="col" class="sort">Birthdate</th>
                               <th scope="col">
                                 <button class="btn btn-info btn-icon-only" name="add" id="add-btn">
                                   <span class="btn-inner-icon"><i class="fas fa-plus"></i></span>
@@ -70,7 +70,7 @@
                                 </select>
                               </td>
                               <td>
-                                 <input name="moreFields[0][birthday]" class="form-control datepicker1" data-date-format='yyyy-mm-dd' placeholder="Select Birthday" type="text" required>
+                                 <input name="moreFields[0][birthday]" class="form-control datepicker1" data-date-format='yyyy-mm-dd' placeholder="Select Birthday" type="date" required>
                                </td>
                               <td>
                                 <input type="hidden" name="moreFields[0][head_id]" value="{{$headfam->id}}"> 
@@ -118,7 +118,7 @@
       '</select>'+
     '</td>'+
     '<td>'+
-      '<input name="moreFields['+i+'][birthday]" class="form-control datepicker1" data-date-format="yyyy-mm-dd"  placeholder="Select Birthday" type="text" required>'+
+      '<input name="moreFields['+i+'][birthday]" class="form-control datepicker1" data-date-format="yyyy-mm-dd"  placeholder="Select Birthday" type="date" required>'+
     '</td>'+
     '<td><button type="button" class="btn btn-danger btn-icon-only remove-tr"><input type="hidden" name="moreFields['+i+'][head_id]" value="{{$headfam->id}}"><span class="btn-inner-icon"><i class="fas fa-minus"></i></span></button></td>'+
     '</tr>');
@@ -138,6 +138,6 @@
       $( function() {
         $( '.datepicker1' ).datepicker();
       } );
-      </script>
+    </script>
 @endpush
 

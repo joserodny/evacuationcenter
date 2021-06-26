@@ -36,6 +36,17 @@
              <option>Female</option>
              </select>
          </div>
+
+         <div class="form-group">
+          <div class="input-group input-group-alternative">
+              <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+              </div>
+              <input name="birthday" class="form-control " data-date-format='yyyy-mm-dd' id="date1" placeholder="Select Birthday" type="date">
+            
+          </div>
+
+      </div> 
       </div>
       
          
@@ -58,9 +69,6 @@
         @push('js')
             <!-- editmodal -->
     <script type="text/javascript">
-      $( function() {
-         $("#datepicker2").datepicker();
-         });  
      $('#editIndi').on('show.bs.modal', function (event) {
  
          var button = $(event.relatedTarget) // Button that triggered the modal
@@ -70,7 +78,6 @@
          var last_name = button.data('last_name') 
          var suffix_name = button.data('suffix_name') 
          var gender = button.data('gender') 
-         var birthday = button.data('birthday') 
          var modal = $(this)
          modal.find('.modal-body #id').val(id) //input constituents_id id
          modal.find('.modal-body #first_name').val(first_name)
@@ -78,7 +85,7 @@
          modal.find('.modal-body #last_name').val(last_name)
          modal.find('.modal-body #suffix_name').val(suffix_name)
          modal.find('.modal-body #gender').val(gender)
-         modal.find('.modal-body #datepicker2').val(birthday)
+       
          });
 
 

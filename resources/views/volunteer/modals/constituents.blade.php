@@ -41,7 +41,7 @@
                   <div class="input-group-prepend">
                       <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                   </div>
-                  <input name="birthday" class="form-control datepicker" data-date-format='yyyy-mm-dd' id="datepicker" placeholder="Select Birthday" type="text">
+                  <input name="birthday" class="form-control datepicker" data-date-format='yyyy-mm-dd' id="datepicker" placeholder="Select Birthday" type="date">
               </div>
           </div> 
          </div>
@@ -103,7 +103,7 @@
               <div class="input-group-prepend">
                   <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
               </div>
-              <input name="birthday" class="form-control datepicker" data-date-format='yyyy-mm-dd' id="datepicker1" placeholder="Select Birthday" type="text">
+              <input name="birthday" class="form-control datepicker" data-date-format='yyyy-mm-dd' id="datepicker1" placeholder="Select Birthday" type="date">
           </div>
       </div> 
 

@@ -4,11 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\DashboardController as AdminController;
 use App\Http\Controllers\Admin\TyphoonController;
-
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Volunteer\ConstituentsController;
 use App\Http\Controllers\Volunteer\DashboardController as VolunteerController;
 use App\Http\Controllers\Volunteer\EvacueesController;
-
+use App\Models\Volunteer\Constituents;
+use Facade\FlareClient\View;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +28,15 @@ Route::get('/', function () {
 });
 
 Route::fallback(function() {
-    return view('layouts.404');
+    return view('/layouts.404');
 });
 
 Auth::routes();
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
+
+    
     // ProfileController'
    // Route::resource('profile',      'App\Http\Controllers\Admin\ProfileController');
     Route::get('profile',                       ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Admin\ProfileController@edit']);
@@ -44,7 +48,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     Route::get('dashboard',                     [AdminController::class, 'index']);
     Route::post('dashboard/brgy',               [AdminController::class, 'storebrgy'])         ->name('dashboard.brgy');
     Route::post('dashboard/evacuation',         [AdminController::class, 'storeevacuation'])   ->name('dashboard.evacuation');
-    Route::resource('dashboard',                AdminController::class, ['only'=>['index','storebrgy', 'storeevacuation']]);
+    Route::get('/getEvacuees',                 [AdminController::class, 'getEvacuees'])       ->name('dashboard.getEvacuees');
+    Route::resource('dashboard',                AdminController::class);
     // End DashboardController
 
     // AccountController
@@ -66,14 +71,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     Route::post('typhoon/update',               [TyphoonController::class, 'update'])->name('typhoon.update');
     // End TyphoonController
 
-    // EvacuationController
-    // Route::resource('evacuationcenter',         EvacuationController::class);
-    // Route::get('evacuationcenter',              [EvacuationController::class, 'index']);
-    // End EvacuationController
+    //total evacuees
+    // view()->composer('admin/*', function ($view) {
+    //     $totalEvacuees      = Constituents::whereIn('status_id', [3,4])->count();
+    //     $view->with([
+    //         'totalEvacuees' => $totalEvacuees,
+    //     ]);
+    // });
 
 });
 
 Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function () {
+
+    
+    
     // ProfileController'
    Route::get('profile',                        ['as' => 'profile.edit', 'uses' => 'App\Http\Controllers\Admin\ProfileController@edit']);
    Route::put('profile',                        ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\Admin\ProfileController@update']);
@@ -86,7 +97,7 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
     Route::get('/familyhead',                   [VolunteerController::class, 'familyHead'])->name('dashboard.familyhead');
     Route::get('/individual',                   [VolunteerController::class, 'individual'])->name('dashboard.individual');
     Route::get('/evacueeshead',                 [VolunteerController::class, 'evacueeshead'])->name('dashboard.evacueeshead');
-
+    Route::get('/evacueesindi',                 [VolunteerController::class, 'evacueesindi'])->name('dashboard.evacueesindi');
     
     Route::post('dashboard/create',             [VolunteerController::class, 'store'])->name('dashboard.create');
     Route::post('dashboard/createindi',         [VolunteerController::class, 'storeindi'])->name('dashboard.createindi');
@@ -95,10 +106,11 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
 
     // ConstituentsController  
     Route::get('familymember/{id}',             [ConstituentsController::class, 'show']);
-    Route::get('familymember/edit/{id}',        [ConstituentsController::class, 'index']);
+    Route::get('familymember/edit/{id}',        [ConstituentsController::class, 'edit']);
     Route::get('familymember/edit/delete/{id}', [ConstituentsController::class, 'destroy']);
     Route::get('familymember/edit/remove/{id}', [ConstituentsController::class, 'removeAll']);
     Route::post('familymember/insert',          [ConstituentsController::class, 'store'])->name('familymember.store');
+    Route::put('familymember/edit/',            [ConstituentsController::class, 'updateAll'])->name('familymember.update');
     //indi
     Route::put('individual/update',             [ConstituentsController::class, 'update'])->name('individual.update');
     Route::get('remove/{id}',                   [ConstituentsController::class, 'destroyindi']);
@@ -111,5 +123,17 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
     Route::get('evacuees/update/{id}',          [EvacueesController::class, 'update']);
     Route::resource('evacuees',                 EvacueesController::class);
     //End EvacueesController
+
+    //total evacuees
+    view()->composer('volunteer/*', function ($view) {
+        $totalEvacuees      = Constituents::where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+        $totalMale          = Constituents::where('gender', 'Male')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+        $totalFemale        = Constituents::where('gender', 'Female')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+        $view->with([
+            'totalEvacuees' => $totalEvacuees,
+            'totalMale'     => $totalMale,
+            'totalFemale'   => $totalFemale,
+        ]);
+    });
 
 });

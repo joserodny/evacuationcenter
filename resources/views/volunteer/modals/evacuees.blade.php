@@ -20,7 +20,7 @@
                      <i class="fas fa-hospital ni-3x"></i>
                      <h4 class="heading mt-4">Is this person and his family members are already at designated evacuation area</h4>
                      <div class="form-group">
-                      <input type="text" id="constituents_id" name="constituents_id" value="">
+                      <input type="hidden" id="constituents_id" name="constituents_id" value="">
                        <select class="form-control form-control-alternative has-danger" name="typhoon_id" required>
                          <option value="">Select Typhoon Name</option>
                          @foreach ($typhoon as $typhoons)

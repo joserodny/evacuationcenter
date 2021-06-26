@@ -24,6 +24,7 @@ class CreateEvacueesTable extends Migration
             $table->foreignIdFor(Evacuation::class);
             $table->foreignIdFor(Typhoon::class);
             $table->integer('evacuees_num');
+            $table->integer('status_id');
             $table->timestamps();
         });
     }
