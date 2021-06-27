@@ -16,7 +16,6 @@ class CreateEvacuationsTable extends Migration
         Schema::create('evacuations', function (Blueprint $table) {
             $table->id();
             $table->integer('brgy_id');
-            $table->foreign('brgy_id')->references('id')->on('barangays');
             $table->string('evacuation_name');
             $table->timestamps();
         });
