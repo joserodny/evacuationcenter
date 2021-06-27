@@ -56,10 +56,19 @@ class DashboardController extends Controller
       ->setXAxis(['infant', 'Child', 'Adult', 'Senior'])
       ->setGrid();
 
+
+
+      $totalEvacuees      = Constituents::where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+      $totalMale          = Constituents::where('gender', 'Male')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+      $totalFemale        = Constituents::where('gender', 'Female')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+
       return view('volunteer.dashboard', 
       [
       'typhoon'       => $typhoon,
       'statId'        => $statId,
+      'totalEvacuees' => $totalEvacuees,
+      'totalMale'     => $totalMale,
+      'totalFemale'   => $totalFemale,
     ], compact('chart'));         
     }
     //show head of family

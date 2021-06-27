@@ -21,17 +21,23 @@ class ConstituentsController extends Controller
 
         //total evacuees
         $userbrgy_id = Auth::user()->brgy_id;
-       
+        $totalEvacuees      = Constituents::where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+        $totalMale          = Constituents::where('gender', 'Male')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+        $totalFemale        = Constituents::where('gender', 'Female')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
         
         $familymember = Constituents::where('head_id', '=', $id)->get();
        
         if($familymember->isEmpty()){
             return view('layouts.404');
         } else{
+
             return view('volunteer.familymember', 
             [
             'familymember' => $familymember, 
-            'id'           => $id
+            'id'           => $id,
+            'totalEvacuees' => $totalEvacuees,
+            'totalMale'     => $totalMale,
+            'totalFemale'   => $totalFemale,
             ] );
         }
        
@@ -114,7 +120,15 @@ class ConstituentsController extends Controller
         if($headfam == NULL){
             return view('layouts.404');
         }else{
-            return view('volunteer.constituents', ['headfam' => $headfam]);
+            $totalEvacuees      = Constituents::where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+            $totalMale          = Constituents::where('gender', 'Male')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+            $totalFemale        = Constituents::where('gender', 'Female')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+            return view('volunteer.constituents', [
+                'headfam' => $headfam,
+                'totalEvacuees' => $totalEvacuees,
+                'totalMale'     => $totalMale,
+                'totalFemale'   => $totalFemale,
+        ]);
         }
         
        

@@ -17,13 +17,14 @@ class TyphoonController extends Controller
      */
     public function index()
     {
-        $barangay = Barangay::getBrgy()->get();
+        $totalEvacuees  = Constituents::select('status_id')->whereIn('status_id', [3,4])->count();
+        $barangay = Barangay::get();
         $typhoon = Typhoon::paginate(5);
   
         return view('admin.typhoon',
         ['barangay' => $barangay, 
         'typhoon' => $typhoon,
-      
+        'totalEvacuees' => $totalEvacuees
     ]);
     }
 

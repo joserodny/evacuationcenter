@@ -29,9 +29,7 @@ class DashboardController extends Controller
         //get barangay
         $barangay = Barangay::select('id', 'barangay_name')->get();
 
-        $evacuation = Evacuation::with(['barangay' => function($q){
-            return $q->select('barangay_name');
-        }])->select('brgy_id','evacuation_name')->get();
+        $evacuation = Evacuation::with('barangay')->select('brgy_id','evacuation_name')->get();
        
         $totalEvacuees  = Constituents::select('status_id')->whereIn('status_id', [3,4])->count();
 
@@ -83,6 +81,23 @@ class DashboardController extends Controller
             }
             
     }
+
+    //get barangay
+    public function getBrgy(Request $request){
+        if($request->ajax()) {
+            $barangay = Barangay::select('id', 'barangay_name')->get();
+          return DataTables::of($barangay)
+                
+                ->addColumn('action', function($barangay){
+                    $btn = '  <button class="btn btn-sm btn-primary btn-icon-only rounded-circle" type="button">
+                                    <span class="btn-inner-icon"><i class="far fa-edit"></i></span>
+                                </button>';                
+                    return $btn; 
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+          }
+      }
 
      /**
      * Store a newly created resource in storage.

@@ -48,7 +48,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'role:admin'], function () {
     Route::get('dashboard',                     [AdminController::class, 'index']);
     Route::post('dashboard/brgy',               [AdminController::class, 'storebrgy'])         ->name('dashboard.brgy');
     Route::post('dashboard/evacuation',         [AdminController::class, 'storeevacuation'])   ->name('dashboard.evacuation');
-    Route::get('/getEvacuees',                 [AdminController::class, 'getEvacuees'])       ->name('dashboard.getEvacuees');
+    Route::get('/getEvacuees',                  [AdminController::class, 'getEvacuees'])       ->name('dashboard.getEvacuees');
+    Route::get('/getBrgy',                      [AdminController::class, 'getBrgy'])           ->name('dashboard.getBrgy');
     Route::resource('dashboard',                AdminController::class);
     // End DashboardController
 
@@ -125,15 +126,15 @@ Route::group(['prefix' => 'volunteer', 'middleware' => 'role:user'], function ()
     //End EvacueesController
 
     //total evacuees
-    view()->composer('volunteer/*', function ($view) {
-        $totalEvacuees      = Constituents::where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
-        $totalMale          = Constituents::where('gender', 'Male')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
-        $totalFemale        = Constituents::where('gender', 'Female')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
-        $view->with([
-            'totalEvacuees' => $totalEvacuees,
-            'totalMale'     => $totalMale,
-            'totalFemale'   => $totalFemale,
-        ]);
-    });
+    // view()->composer('volunteer/*', function ($view) {
+    //     $totalEvacuees      = Constituents::where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+    //     $totalMale          = Constituents::where('gender', 'Male')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+    //     $totalFemale        = Constituents::where('gender', 'Female')->where('evacuation_id', '=', Auth::user()->evacuation_id)->whereIn('status_id', [3,4])->count();
+    //     $view->with([
+    //         'totalEvacuees' => $totalEvacuees,
+    //         'totalMale'     => $totalMale,
+    //         'totalFemale'   => $totalFemale,
+    //     ]);
+    // });
 
 });
