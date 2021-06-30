@@ -99,6 +99,23 @@ class Constituents extends Model
                     ->orderByDesc('constituents.id');
      }
 
+     public function scopegetConstiEvacuees($query){
+
+        return $query->leftJoin('barangays', 'barangays.id', '=', 'constituents.barangay_id')
+                     ->leftJoin('evacuations', 'evacuations.id', '=', 'constituents.evacuation_id')
+                     ->select(
+                     'constituents.id',   
+                     'evacuations.evacuation_name',
+                     'barangays.barangay_name',
+                     'constituents.birthday',
+                     'constituents.status_id',
+                     'evacuees.status_id'
+                     )
+                     ->orderByDesc('constituents.id');
+      }
+ 
+      
+
      
     
 

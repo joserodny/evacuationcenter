@@ -3,6 +3,7 @@
 namespace App\Models\Volunteer;
 
 use App\Models\Admin\Barangay;
+use App\Models\Admin\Evacuation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -36,36 +37,40 @@ class Evacuees extends Model
     ];
 
 
-    //query for constituents
+  
 
     public function barangay(){
-        return $this->belongsTo(Barangay::class, 'barangay_id');
+        return $this->belongsTo(Barangay::class);
     }
 
     public function constituents(){
-        return $this->belongsTo(Constituents::class, 'constituents_id');
+        return $this->belongsTo(Constituents::class);
+    }
+
+    public function evacuation(){
+        return $this->belongsTo(Evacuation::class);
     }
    
 
-    public function scopegetEvacuees($query){
+    // public function scopegetEvacuees($query){
 
-        return $query->leftJoin('constituents', 'constituents.id', '=', 'evacuees.constituents_id')
-                    ->leftJoin('barangays', 'barangays.id', '=', 'evacuees.barangay_id')
-                    ->leftjoin('evacuations', 'evacuations.id', '=', 'evacuees.evacuation_id')
-                    ->select(
-                    'constituents.id',   
-                    'constituents.first_name',
-                    'constituents.middle_name',
-                    'constituents.last_name',
-                    'constituents.suffix_name',  
-                    'constituents.head_id',
-                    'barangays.barangay_name',
-                    'constituents.gender',
-                    'constituents.birthday',
-                    'constituents.status_id',
-                    'evacuees.constituents_id'
-                    )
-                    ->orderByDesc('constituents.id');
-     }
+    //     return $query->leftJoin('constituents', 'constituents.id', '=', 'evacuees.constituents_id')
+    //                 ->leftJoin('barangays', 'barangays.id', '=', 'evacuees.barangay_id')
+    //                 ->leftjoin('evacuations', 'evacuations.id', '=', 'evacuees.evacuation_id')
+    //                 ->select(
+    //                 'constituents.id',   
+    //                 'constituents.first_name',
+    //                 'constituents.middle_name',
+    //                 'constituents.last_name',
+    //                 'constituents.suffix_name',  
+    //                 'constituents.head_id',
+    //                 'barangays.barangay_name',
+    //                 'constituents.gender',
+    //                 'constituents.birthday',
+    //                 'constituents.status_id',
+    //                 'evacuees.constituents_id'
+    //                 )
+    //                 ->orderByDesc('constituents.id');
+    //  }
 
 }

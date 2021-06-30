@@ -40,29 +40,6 @@ class EvacueesController extends Controller
     public function store(Request $request)
     {
        
-        $request->validate(Evacuees::$evacuees);
-        $famMember = Constituents::where('head_id', '=', $request['constituents_id'])->count();
-        if($famMember == 0){
-            Evacuees::Create([
-                'constituents_id' => $request['constituents_id'],
-                'barangay_id'     => Auth::user()->brgy_id,
-                'evacuation_id'   => Auth::user()->evacuation_id,
-                'typhoon_id'      => $request['typhoon_id'],
-                'evacuees_num'    => 1,
-                'status_id'       => 1,
-            ]);
-        }else{
-            Evacuees::Create([
-                'constituents_id' => $request['constituents_id'],
-                'barangay_id'     => Auth::user()->brgy_id,
-                'evacuation_id'   => Auth::user()->evacuation_id,
-                'typhoon_id'      => $request['typhoon_id'],
-                'evacuees_num'    => $famMember,
-                'status_id'       => 1,
-            ]);
-        }
-       
-
         //update family head status
          //$updateUser = Constituents::findOrFail($request->constituents_id);
 
@@ -132,14 +109,17 @@ class EvacueesController extends Controller
                 'status_id'     => '2',
                 'evacuation_id' => NULL,
             ]);
-            Evacuees::where('constituents_id', '=', $id)->update(['status_id' => '2',]);
+             //delete Evacuees
+           
+       
        
          }else{
              Constituents::where('head_id', '=', $id)->update([
                  'status_id'     => '1',
                  'evacuation_id' => NULL,
                 ]);
-                Evacuees::where('constituents_id', '=', $id)->update(['status_id' => '2',]);
+            //delete Evacuees
+          
          }
    
                

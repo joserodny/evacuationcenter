@@ -43,7 +43,7 @@ class DashboardController extends Controller
         ->setColors(['#00E38E', '#ff6384'])
         ->setLabels(['Male', 'Female']);
 
-      
+
 
         return view ('admin.dashboard',
         ['barangay'     => $barangay, 
@@ -59,22 +59,20 @@ class DashboardController extends Controller
     public function getEvacuees(Request $request){
 
         if($request->ajax()) {
-            $getEvacuees = Evacuees::getEvacuees()
-            ->select(
-                'barangay_name', 
-                'evacuation_name', 
-                 DB::raw(
-                     '
-                      count(constituents.head_id) as family,
-                      sum(evacuees_num) as individual,
-                      sum(constituents.birthday Between 0 and 2) as infant,
-                      sum(constituents.birthday Between 3 and 12) as child,
-                      sum(constituents.birthday Between 13 and 59) as adult,
-                      sum(constituents.birthday Between 60 and 200) as senior
-                     '))
-            ->where('evacuees.status_id', '=', 1)   
+            $getEvacuees = Constituents::getConstiEvacuees()
+      
+            ->select('barangay_name',
+                     'evacuation_name',
+                     DB::raw('
+                     count(distinct constituents.head_id) as family,
+                     count(constituents.id) as individual,
+                     sum(constituents.birthday Between 0 and 2) as infant,
+                     sum(constituents.birthday Between 3 and 12) as child,
+                     sum(constituents.birthday Between 13 and 59) as adult,
+                     sum(constituents.birthday Between 60 and 200) as senior
+                     '))      
+            ->groupBy('constituents.evacuation_id')     
             ->whereIn('constituents.status_id', [3,4])
-            ->groupBy('evacuees.evacuation_id')
             ->get();
           return DataTablesDataTables::of($getEvacuees)->make(true);
               
