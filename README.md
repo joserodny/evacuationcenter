@@ -9,3 +9,4 @@ In this present time technologies become tools of every country to anticipate th
 	Being a citizen of this country and as an IT student that involves in solving problem to make process and work easier. We are not just proposing and creating this thesis to complete the requirement of this curriculum but to at least provide a solution to a problem during calamities and help our Government in terms of monitoring the actual numbers of evacuees.
 </h4>
 	
+![image](https://user-images.githubusercontent.com/41980624/149607521-60679f20-0b1a-4bf5-8a07-60d52b2f5d5c.png)
